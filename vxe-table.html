@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- 引入样式 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vxe-table/lib/index.css">
+    <!-- 引入脚本 -->
+    <script src="https://cdn.jsdelivr.net/npm/xe-utils"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vxe-table"></script>
+</head>
+<body>
+
+
+           <div id="app">
+             <h3>树形表格</h3>
+               <vxe-table
+                       resizable
+                       :tree-config="{children: 'children'}"
+                       :data="tableData"
+                       :show-header="false"
+                       row-id="id"
+                       @select-change="selectChangeApi"
+                       :checkbox-config="{labelField: 'id', highlight: true,checkRowKeys:dataArr}"
+                      >
+                   <vxe-table-column type="checkbox" title="ID" width="280" tree-node></vxe-table-column>
+                   <vxe-table-column field="name" title="Name"> </vxe-table-column>
+                   <vxe-table-column field="size" title="Size"> </vxe-table-column>
+                   <vxe-table-column field="type" title="Type"> </vxe-table-column>
+                   <vxe-table-column field="date" title="Date"> </vxe-table-column>
+               </vxe-table>
+
+           </div>
+
+
+
+
+
+</body>
+
+
+
+<script>
+// :show-header="false"
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            name: '',
+            isActive: true,
+            dataArr:['66'],
+             tableData:[
+                 {
+                     id: 1,
+                     date: '1',
+                     name: '菜单管理',
+                     address: '上海市普陀区金沙江路 1518 弄',
+                     children: [
+                         {
+                             id: 66,
+                             date: '1-1',
+                             name: '菜单管理',
+                             address: '上海市普陀区金沙江路 1519 弄'
+                         }, {
+                             id: 67,
+                             date: '1-2',
+                             name: '菜单管理',
+                             checked:'true',
+                             address: '上海市普陀区金沙江路 1519 弄'
+                         }
+                     ]
+                 },
+                 {
+                     id: 2,
+                     date: '2',
+                     name: '菜单管理',
+                     address: '上海市普陀区金沙江路 1517 弄',
+                     children: [
+                         {
+                             id: 25,
+                             date: '1-1',
+                             name: '菜单管理',
+                             address: '上海市普陀区金沙江路 1519 弄'
+                         }, {
+                             id: 26,
+                             date: '1-2',
+                             name: '菜单管理',
+                             address: '上海市普陀区金沙江路 1519 弄'
+                         }
+                     ]
+                 },
+                 {
+                     id: 3,
+                     date: '3',
+                     name: '菜单管理',
+                     address: '上海市普陀区金沙江路 1519 弄',
+                     children: [
+
+                         {
+                             id: 18,
+                             date: '3-1',
+                             name: '菜单管理',
+                             address: '上海市普陀区金沙江路 1517 弄'
+                         },
+
+                         {
+                             id: 31,
+                             date: '3-2',
+                             name: '菜单管理',
+                             address: '上海市普陀区金沙江路 1519 弄',
+                             children: [
+                                 {
+                                     id: 29,
+                                     date: '4-1',
+                                     name: '菜单管理',
+                                     address: '上海市普陀区金沙江路 1519 弄'
+                                 }, {
+                                     id: 30,
+                                     date: '4-2',
+                                     name: '菜单管理',
+                                     address: '上海市普陀区金沙江路 1519 弄',
+                                     children: [
+                                         {
+                                             id: 32,
+                                             date: '6-1',
+                                             name: '菜单管理',
+                                             address: '上海市普陀区金沙江路 1519 弄'
+                                         }, {
+                                             id: 33,
+                                             date: '6-2',
+                                             name: '菜单管理',
+                                             address: '上海市普陀区金沙江路 1519 弄',
+                                             children: [
+                                                 {
+                                                     id: 15,
+                                                     date: '7-1',
+                                                     name: '菜单管理',
+                                                     address: '上海市普陀区金沙江路 1519 弄'
+                                                 }, {
+                                                     id: 16,
+                                                     date: '7-2',
+                                                     name: '菜单管理',
+                                                     address: '上海市普陀区金沙江路 1519 弄',
+                                                     children: [
+                                                         {
+                                                             id: 19,
+                                                             date: '8-1',
+                                                             name: '菜单管理',
+                                                             address: '上海市普陀区金沙江路 1519 弄'
+                                                         }, {
+                                                             id: 20,
+                                                             date: '8-2',
+                                                             name: '菜单管理',
+                                                             address: '上海市普陀区金沙江路 1519 弄'
+                                                         }
+                                                     ]
+                                                 }
+                                             ]
+                                         }
+                                     ]
+                                 }
+                             ]
+                         },
+                     ]
+                 },
+                 {
+                     id: 55,
+                     date: '4',
+                     name: '菜单管理',
+                     address: '上海市普陀区金沙江路 1518 弄',
+
+                 },
+             ]
+        },
+
+
+// computed: {
+//     classObject: function () {
+//         return {
+//             active: this.isActive && !this.error,
+//             'text-danger': this.error && this.error.type === 'fatal'
+//         }
+//     }
+// },
+
+// @checkbox-change="selectChangeEvent"
+        methods: {
+            add() {
+//    1.拼接处一个完整的用户信息对象，包含ID 和name
+                const newUser = {id: this.list.length, name: this.name};
+//    2.把拼接出来的用户信息对象 调用this.list.unshift方法把对象追加到数组的第一个
+                this.list.unshift(newUser);
+            },
+
+            selectChangeEvent ({ selection }) {
+                console.info(`勾选${selection.length}个树形节点`, selection)
+            },
+
+            selectChangeApi(event){
+                console.log(event)
+            },
+
+        },
+        created () {
+           // this.tableData = window.MOCK_TREE_DATA_LIST.slice(0)
+        },
+    });
+
+
+let arr=[1,2,3,4,5,6,7];
+
+ let b= arr.find(v=>v==2)
+ console.log(b);
+
+
+ let str='pat/';
+ console.log(str);
+  let newStr=str.replace('/','a');
+  console.log(newStr);
+
+let test =XEUtils.toStringDate('2018-01-01 10:30:00');
+let test2=XEUtils.toDateString(Date.now(), 'yyyy-MM-dd HH:mm:ss')
+console.log(test2);
+
+let test3 =XEUtils.isArray([1,2,3]) // false
+XEUtils.isArray({}) // false
+XEUtils.isArray([1,2,3]) // true
+
+console.log(test3);
+
+
+function getJSON (url, callback) {
+    setTimeout(function() {
+       // callback({name: 'test1'})
+
+        console.log(123);
+        callback();
+    }, 200)
+}
+
+// 如果你想确保所有异步请求完成之后才执行这个函数
+let finish = XEUtils.after(3, function (rests) {
+    console.log('All finish')
+})
+getJSON('/api/list1', finish)
+getJSON('/api/list2', finish)
+getJSON('/api/list3', finish)
+</script>
+</html>
