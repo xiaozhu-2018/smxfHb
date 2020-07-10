@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>应急事件I</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+    <style type="text/css">
+
+      body.monitor{
+          background-color: black;
+          /*background-color: rgba(255,255,255,0);*/
+      }
+
+
+      /*监测数据完整性*/
+      .flex-container{
+          border: 1px solid red;
+          width: 352px;
+          height:318px;
+          display: -webkit-flex;
+      }
+
+      .item1-flex{
+          width: 352px;
+          height:318px;
+          /*border: 1px solid blue;*/
+      }
+
+      [v-cloak]{
+          display: none;
+      }
+
+
+    </style>
+
+
+</head>
+
+
+<body class="monitor">
+    <div class="container-fluid" id="monitor-ew" v-cloak>
+             <!--监测系统完整352*318-->
+         <div class="flex-container">
+               <div class="item1-flex" id="m-system">  </div>
+
+         </div>
+
+
+
+    </div>
+
+
+
+</body>
+
+<script type="text/javascript" src="../js/new-vue.js"> </script>
+<script src="../js/echarts.js"></script>
+   <script type="text/javascript">
+        var vm=new Vue({
+            el:'#monitor-ew',
+            data:{
+
+            },
+            methods:{
+                //监测数据的完整性
+                getSystem(){
+                    var myChart=echarts.init(document.getElementById('m-system'));
+                    var dataArr=[{   value: 123, name: '在线点位',
+                        itemStyle: {
+                            normal: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                    offset:0.1,
+                                    color: '#99FF66'
+
+                                }, {
+                                    offset: 1,
+                                    color: '#FFFF99'
+                                }]),
+                            }
+                        },
+
+                        //环形数据值显示
+                        label:{
+                            normal: {
+                                //自定义展示数据
+                                formatter: '{a|实时}\n{b|互联}',
+                                position: 'center',
+                                show: false,
+                                padding:[30,0,0,0],
+                                textStyle: {
+                                    fontSize:12,
+                                    fontWeight:200,
+                                    color: '#fff',
+                                    rich:{
+                                        a:{
+                                            fontSize:16,
+                                            color: "#fff",
+                                            fontWeight:'bold',
+                                            padding:5
+
+                                        },
+                                        b:{
+                                            fontSize:16,
+                                            color: "#fff",
+                                            fontWeight:'bold'
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+
+                    }];
+
+
+                    function _pie3() {
+
+                        for (var i = 0; i < 20; i++) {
+                            if (i % 2 === 0) {
+                                dataArr.push({
+                                    name: (i + 1).toString(),
+                                    value: 1,
+                                    itemStyle: {
+                                        normal: {
+                                            color: "rgb(126,190,255)",
+                                            borderWidth: 0,
+                                            borderType:'dotted',
+                                            borderColor: "rgba(0,0,0,0)"
+                                        }
+                                    }
+                                })
+                            } else {
+                                dataArr.push({
+                                    name: (i + 1).toString(),
+                                    value: 1,
+                                    itemStyle: {
+                                        normal: {
+                                            color: "rgba(0,0,0,0)",
+                                            borderWidth: 0,
+                                            borderType:'dotted',
+                                            borderColor: "rgba(0,0,0,0)"
+                                        }
+                                    }
+                                })
+                            }
+
+                        }
+
+                        return dataArr
+
+                    }
+
+                    var  option2 = {
+                        title:[{
+                            text:'{a|实时}\n{b|互联}',
+                            left:'21%',
+                            top:'20%',
+                            show:false,
+
+                            textStyle: {
+                                fontSize:12,
+                                fontWeight:200,
+                                color: '#fff',
+                                rich:{
+                                    a:{
+                                        fontSize:16,
+                                        color: "#fff",
+                                        fontWeight:'bold',
+                                        padding:[6,0,0,0]
+
+                                    },
+                                    b:{
+                                        fontSize:16,
+                                        color: "#fff",
+                                        fontWeight:'bold',
+                                        padding:[6,0,0,0]
+                                    }
+                                }
+                            }
+                        }],
+                        legend:{
+                            show:false,
+                            icon:'none',
+                            top:'10%',
+                            left:'40%',
+                            selectedMode:false,
+                            textStyle: {
+                                fontSize: 12,
+                                color:'#FFFFFF',
+                                fontWeight:'bold',
+                                // backgroundColor:'#BDBDBD',
+
+                                rich: {
+                                    name: {
+                                        color: "#fff",
+                                        fontWeight:'bold',
+                                        fontSize: 12,
+                                    },
+                                    percent: {
+                                        color: '#fff',
+                                        fontSize: 12,
+                                        fontWeight:'bold',
+                                    }
+                                }
+                            },
+
+
+
+
+
+
+                        },
+                        series: [
+                            {
+                                name: '在线点位',
+                                type: 'pie',
+                                cursor:'pointer',
+                                center: ['27%', '26%'],
+                                radius: ['30%', '31%'],
+                                hoverAnimation: true,
+                                itemStyle: {                // 图形样式
+                                    normal: {
+                                        color: "#5886f0",       // 图形的颜色
+                                        borderColor: "#5886f0", // 图形的描边颜色
+                                        borderWidth: 6,        // 描边线宽。为 0 时无描边。[ default: 0 ]
+                                        borderType: 'solid',    // 柱条的描边类型，默认为实线，支持 'solid', 'dashed', 'dotted'。
+                                        label: {                // 图形内部标签
+                                            show: true,                 // 是否显示标签
+                                            textStyle: {                // 标签文本样式
+                                                fontSize: 15,
+                                                fontWeight: "bold"      // 标签字体加粗,'normal','bold','bolder','lighter',100 | 200 | 300 | 400...
+                                            },
+                                            position: "center"          // 标签的位置,'outside'(饼图扇区外侧，通过视觉引导线连到相应的扇区)
+                                                                        // 'inside'(饼图扇区内部);  'inner' 同 'inside'。
+                                                                        // 'center'(在饼图中心位置。)
+                                        },
+                                        labelLine: {            // 标签的视觉引导线样式，在 label 位置 设置为'outside'的时候会显示视觉引导线。
+                                            show: false
+                                        }
+                                    },
+                                    // emphasis: {                 // 高亮的扇区和标签样式(起强调作用)
+                                    //     color: "#5886f0",
+                                    //     borderColor: "#5886f0",
+                                    //     borderWidth: 20,
+                                    //     borderType: 'solid',
+                                    //     label: {
+                                    //         textStyle: {
+                                    //             fontSize: 15,
+                                    //             fontWeight: "bold"
+                                    //         }
+                                    //     }
+                                    // }
+                                },
+                                startAngle:15,
+                                label: {
+                                    normal: {
+                                        show:false,
+                                        position: 'center'
+                                    }
+                                },
+                                labelLine: {
+                                    show:false,
+                                    normal: {
+                                        length: 15,
+                                        length2:12,
+                                        lineStyle: {
+                                            width: 0.8
+                                        }
+                                    }
+                                },
+
+                                data:_pie3(),
+                            },
+                        ]
+                    };
+                    var option = {
+
+                        series: [
+                            {
+                            type: "pie",                // 系列1类型: 饼图
+                            center: ["25%","50%"],      // 饼图的中心(圆心)坐标，数组的第一项是横坐标，第二项是纵坐标。[ default: ['50%', '50%'] ]
+                            radius: ["49%","50%"],      // 饼图的半径，数组的第一项是内半径，第二项是外半径。[ default: [0, '75%'] ]
+                                                        // 可以将内半径设大显示成圆环图（Donut chart）。
+                            clockWise: false,           // 饼图的扇区是否是顺时针排布。[ default: true ]
+                            startAngle: 90,             // 起始角度，支持范围[0, 360]。 [ default: 90 ]
+                            hoverAnimation: true,       // 是否开启 hover 在扇区上的放大动画效果。[ default: true ]
+                            itemStyle: {                // 图形样式
+                                normal: {
+                                    color: "#5886f0",       // 图形的颜色
+                                    borderColor: "#5886f0", // 图形的描边颜色
+                                    borderWidth: 10,        // 描边线宽。为 0 时无描边。[ default: 0 ]
+                                    borderType: 'solid',    // 柱条的描边类型，默认为实线，支持 'solid', 'dashed', 'dotted'。
+                                    label: {                // 图形内部标签
+                                        show: true,                 // 是否显示标签
+                                        textStyle: {                // 标签文本样式
+                                            fontSize: 15,
+                                            fontWeight: "bold"      // 标签字体加粗,'normal','bold','bolder','lighter',100 | 200 | 300 | 400...
+                                        },
+                                        position: "center"          // 标签的位置,'outside'(饼图扇区外侧，通过视觉引导线连到相应的扇区)
+                                                                    // 'inside'(饼图扇区内部);  'inner' 同 'inside'。
+                                                                    // 'center'(在饼图中心位置。)
+                                    },
+                                    labelLine: {            // 标签的视觉引导线样式，在 label 位置 设置为'outside'的时候会显示视觉引导线。
+                                        show: false
+                                    }
+                                },
+                                emphasis: {                 // 高亮的扇区和标签样式(起强调作用)
+                                    color: "#5886f0",
+                                    borderColor: "#5886f0",
+                                    borderWidth: 20,
+                                    borderType: 'solid',
+                                    label: {
+                                        textStyle: {
+                                            fontSize: 15,
+                                            fontWeight: "bold"
+                                        }
+                                    }
+                                }
+                            },
+                            data: [
+                                {value: 52.7,name: "男(480人) 比率52.7%"},
+                                {name: " ",value: 20,
+                                    itemStyle: {
+                                        normal: {
+                                            color: "#5886f0",
+                                            borderColor: "#5886f0",
+                                            borderWidth: 0,
+                                            borderType: 'dotted',
+                                            label: {
+                                                show: false
+                                            },
+                                            labelLine: {
+                                                show: false
+                                            }
+                                        },
+                                        emphasis: {
+                                            color: "#5886f0",
+                                            borderColor: "#5886f0",
+                                            borderWidth: 0
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+
+                            {
+                            type: "pie",            // 系列2类型: 饼图
+                            center: [
+                                "75.0%",
+                                "50%"
+                            ],
+                            radius: [
+                                "49%",
+                                "50%"
+                            ],
+                            clockWise: false,
+                            hoverAnimation: true,
+                            itemStyle: {
+                                normal: {
+                                    label: {
+                                        show: true,
+                                        textStyle: {
+                                            fontSize: 15,
+                                            fontWeight: "bold"
+                                        },
+                                        position: "center"
+                                    },
+                                    labelLine: {
+                                        show: false
+                                    },
+                                    color: "#ee3a3a",
+                                    borderColor: "#ee3a3a",
+                                    borderWidth: 20
+                                },
+                                emphasis: {
+                                    label: {
+                                        textStyle: {
+                                            fontSize: 15,
+                                            fontWeight: "bold"
+                                        }
+                                    },
+                                    color: "#ee3a3a",
+                                    borderColor: "#ee3a3a",
+                                    borderWidth: 20
+                                }
+                            },
+                            data: [{
+                                value: 47.3,
+                                name: "女(421人)  占率47.3%"
+                            },
+                                {
+                                    name: " ",
+                                    value: 52.7,
+                                    itemStyle: {
+                                        normal: {
+                                            label: {
+                                                show: false
+                                            },
+                                            labelLine: {
+                                                show: false
+                                            },
+                                            color: "#ee3a3a",
+                                            borderColor: "#ee3a3a",
+                                            borderWidth: 0
+                                        },
+                                        emphasis: {
+                                            color: "#ee3a3a",
+                                            borderColor: "#ee3a3a",
+                                            borderWidth: 0
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                        ]
+                    };
+                    myChart.setOption(option2);
+                },
+
+            },
+           mounted:function () {
+               this.getSystem()
+           }
+
+
+
+        })
+
+
+
+
+
+
+   </script>
+
+
+
+</html>

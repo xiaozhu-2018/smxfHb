@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>应急力量统计</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <style type="text/css">
+
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+
+
+        body.supervise{
+            background-color: black;
+            /*background-color: rgba(255,255,255,0);*/
+        }
+
+        .flex-container{
+            border: 1px solid red;
+            display: -webkit-flex;
+            width:340px;
+            height:320px;
+            margin: 0px auto;
+        }
+
+        .item1-flex{
+            border: 1px solid blue;
+            box-sizing: border-box;
+            width:340px;
+            height: 320px;
+        }
+
+
+        [v-cloak]{
+            display: none;
+        }
+
+
+
+
+
+    </style>
+
+</head>
+<body class="supervise">
+
+
+<div class="container-fluid"   id="xf-supervise" v-cloak>
+    <!--风险隐患统计-->
+    <div class="flex-container">
+
+        <div class="item1-flex"   id="danger-supervise">
+
+        </div>
+
+
+    </div>
+
+
+
+</div>
+
+
+
+</body>
+
+<script type="text/javascript" src="../js/new-vue.js"> </script>
+<script src="../js/echarts.js"></script>
+<script type="text/javascript">
+    var vm=new Vue({
+        el:'#xf-supervise',
+        data:{
+
+        },
+        methods:{
+            getSafety(){
+                var myChart = echarts.init(document.getElementById('danger-supervise'));
+                var seriesObj = [
+                    {
+                        name: '内圆圈',
+                        type: 'pie',
+                        clockWise: false,
+
+                        center:['48%','30%'],
+                        radius: ['39%'],
+                        hoverAnimation: false,
+                        itemStyle: {
+                            color:'#D8D8D8',
+                            normal: {
+                                label: {
+                                    show: false,
+                                },
+                                labelLine: {
+                                    show: false,
+                                }
+                            }
+                        },
+                        data:[
+                            {
+                            value:100,
+                            itemStyle:{
+                                color:'#D8D8D8',
+                                opacity: 0.2
+                            }
+                        }]
+
+                    },
+                    {
+                        name: '应急物资统计',
+                        type: 'pie',
+                        cursor:'pointer',
+                        center:['48%','30%'],
+                        radius: ['40%','41%'],
+                        hoverAnimation: false,
+                        startAngle:-30,
+                        label: {
+                            normal: {
+                                position: 'center'
+                            }
+                        },
+                        labelLine: {
+                            show:false,
+                            normal: {
+                                length: 15,
+                                length2:12,
+                                lineStyle: {
+                                    width: 0.8
+                                }
+                            }
+                        },
+
+                        data: [
+
+                            {   value: 80, name: '救援力量统计',
+                                itemStyle: {
+
+                                    normal: {
+                                     //opacity: 0.7,
+                                        color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
+                                            offset:0.2,
+                                            color: '#BDBDBD'
+                                        }, {
+                                            offset: 1,
+
+                                            color: '#BDBDBD'
+                                        }]),
+                                    }
+                                },
+
+                                //环形数据值显示
+                                label:{
+                                    normal: {
+                                        //自定义展示数据
+                                        formatter: '{a|救援力量统计}\n\n{b|{c}}',
+                                        position: 'center',
+                                        show: true,
+                                        padding:[50,0,0,0],
+                                        textStyle: {
+                                            fontSize:12,
+                                            fontWeight:200,
+                                            color: '#fff',
+                                            rich:{
+                                                a:{
+                                                    fontSize:16,
+                                                    color: "#D8D8D8",
+                                                    fontWeight:'bold'
+                                                },
+
+                                                b:{
+                                                    fontSize:17,
+                                                    color: "#fff",
+                                                    fontWeight:'bold'
+                                                }
+
+
+                                            }
+                                        }
+                                    }
+                                }
+
+
+                            },
+                            {   value:20,
+                                name: '良好',
+                                itemStyle: {
+                                    normal: {
+                                   label: {
+                                          show: false
+                                       },
+                                     labelLine: {
+                                      show: false
+                                     },
+                                     color: 'rgba(0, 0, 0, 0)',
+                                     borderColor: 'rgba(0, 0, 0, 0)',
+                                     borderWidth: 0
+                                                    }
+
+                                },
+
+                            }],
+                    },
+                    {
+                        name: '外圆圈',
+                        type: 'pie',
+                        clockWise: false,
+                        z:0,
+                        center:['48%','30%'],
+                        radius: ['47%','48%'],
+                        hoverAnimation: false,
+                        itemStyle: {
+                            color:'#D8D8D8',
+                            normal: {
+                                label: {
+                                    show: false,
+                                },
+                                labelLine: {
+                                    show: false,
+                                }
+                            }
+                        },
+                        data:[
+                            {
+                                value:100,
+                                itemStyle:{
+                                    color:'#D8D8D8',
+                                    opacity: 0.2
+                                }
+                            }]
+
+                    },
+                    {
+                        name: '救援队伍',
+                        type: 'pie',
+                        cursor:'pointer',
+                        center: ['23%', '75%'],
+                        radius: ['30%', '35%'],
+                        hoverAnimation: false,
+                        startAngle:-30,
+                        label: {
+                            normal: {
+                                position: 'center'
+                            }
+                        },
+                        labelLine: {
+                            show:false,
+                            normal: {
+                                length: 15,
+                                length2:12,
+                                lineStyle: {
+                                    width: 0.8
+                                }
+                            }
+                        },
+
+                        data: [
+
+                            {   value: 70, name: '优秀',
+                            itemStyle: {
+                                normal: {
+                                    color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
+                                        offset:0.2,
+                                        color: '#2afadf'
+                                    }, {
+                                        offset: 1,
+
+                                        color: '#00BFFF'
+                                    }]),
+                                }
+                            },
+
+                            //环形数据值显示
+                            label:{
+                                normal: {
+                                    //自定义展示数据
+                                    formatter: '{a|救援队伍}\n\n{b|{c}}',
+                                    position: 'center',
+                                    show: true,
+                                    padding:[50,0,0,0],
+                                    textStyle: {
+                                        fontSize:12,
+                                        fontWeight:200,
+                                        color: '#fff',
+                                        rich:{
+                                            a:{
+                                                fontSize:14,
+                                                color: "#D8D8D8",
+                                                fontWeight:'bold'
+                                            },
+
+                                            b:{
+                                                fontSize:14,
+                                                color: "#fff",
+                                                fontWeight:'bold'
+                                            }
+
+
+                                        }
+                                    }
+                                }
+                            }
+
+
+                        },
+                            {   value:30,
+                                name: '良好',
+                                itemStyle:{normal:{
+                                        color:'#6E6E6E'
+                                    }
+                                },
+                                label:{
+                                    show:false,
+                                }
+                            }],
+                    },
+                    {
+                        name: '医疗队伍',
+                        type: 'pie',
+                        cursor:'pointer',
+                        center: ['72%', '75%'],
+                        radius: ['30%', '35%'],
+                        hoverAnimation: false,
+                        startAngle:90,
+                        label: {
+                            normal: {
+                                position: 'center'
+                            }
+                        },
+                        labelLine: {
+                            show:false,
+                            normal: {
+                                length: 15,
+                                length2:12,
+                                lineStyle: {
+                                    width: 0.8
+                                }
+                            }
+                        },
+
+                        data: [
+
+                            {   value: 30, name: '优秀',
+                                itemStyle: {
+                                    normal: {
+                                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                            offset:0.1,
+                                            color: '#D7DF01'
+
+                                        }, {
+                                            offset: 0.3,
+                                            color: '#DBA901'
+                                        }]),
+                                    }
+                                },
+
+                                //环形数据值显示
+                                label:{
+                                    normal: {
+                                        //自定义展示数据
+                                        formatter: '{a|医疗队伍}\n\n{b|{c}}',
+                                        position: 'center',
+                                        show: true,
+                                        padding:[50,0,0,0],
+                                        textStyle: {
+                                            fontSize:12,
+                                            fontWeight:200,
+                                            color: '#fff',
+                                            rich:{
+                                                a:{
+                                                    fontSize:14,
+                                                    color: "#D8D8D8",
+                                                    fontWeight:'bold'
+                                                },
+
+                                                b:{
+                                                    fontSize:14,
+                                                    color: "#fff",
+                                                    fontWeight:'bold'
+                                                }
+
+
+                                            }
+                                        }
+                                    }
+                                }
+
+
+                            },
+                            {   value:70,
+                                name: '良好',
+                                itemStyle:{normal:{
+                                        color:'#6E6E6E'
+                                    }
+                                },
+                                label:{
+                                    show:false,
+                                }
+                            }],
+                    },
+                ];
+                var option2 = {
+                    series: seriesObj
+                }
+                myChart.setOption(option2);
+
+            } ,
+
+        },
+
+        mounted:function () {
+            this.getSafety()
+        }
+
+
+
+    })
+
+
+
+
+</script>
+
+
+</html>

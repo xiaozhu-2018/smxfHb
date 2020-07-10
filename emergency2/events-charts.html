@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>应急事件统计</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <style type="text/css">
+
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+
+
+        body.supervise{
+            background-color: black;
+            /*background-color: rgba(255,255,255,0);*/
+        }
+
+        .flex-container{
+            border: 1px solid red;
+            display: -webkit-flex;
+            width:320px;
+            height:210px;
+            margin: 0px auto;
+        }
+
+
+        .item1-flex{
+            border: 1px solid blue;
+            box-sizing: border-box;
+            width:320px;
+            height: 210px;
+        }
+
+
+        [v-cloak]{
+            display: none;
+        }
+
+
+
+
+
+    </style>
+
+</head>
+<body class="supervise">
+
+
+<div class="container-fluid"   id="xf-supervise" v-cloak>
+    <!--风险隐患统计-->
+    <div class="flex-container">
+
+        <div class="item1-flex"   id="danger-supervise">
+
+        </div>
+
+
+    </div>
+
+
+
+</div>
+
+
+
+</body>
+
+<script type="text/javascript" src="../js/new-vue.js"> </script>
+<script src="../js/echarts.js"></script>
+<script type="text/javascript">
+    var vm=new Vue({
+        el:'#xf-supervise',
+        data:{
+
+        },
+        methods:{
+            getSafety(){
+                var myChart = echarts.init(document.getElementById('danger-supervise'));
+                var option1= {
+
+                    calculable : true,
+                    grid: {
+                        top: '10%',
+                        bottom:'10%',
+                        left:'3%',
+                        right:'5%',
+                        containLabel:true
+                    },
+                    xAxis: [{
+                        type: 'category',
+                        boundaryGap:false,
+                        offset:8,
+                        axisLine: {
+                            show: true,
+                            lineStyle: {
+                                width:2
+                            },
+                        },
+                        axisLabel: {
+                            interval:0,
+                            textStyle: {
+                                color: '#fff',
+                                fontSize:14,
+                                fontWeight:'bold'
+                            },
+                        },
+                        axisTick: {
+                            show: false,
+                        },
+                        data: ['一月','二月','三月','四月','五月','六月'],
+                    }],
+                    yAxis: [
+                        {
+                            type:'value',
+                            minInterval:25,
+
+                            splitLine: {
+                                show: false,
+                                lineStyle: {
+                                    color:'rgb(93,101,173)'
+                                }
+                            },
+                            axisLine: {
+                                show: false  ,
+                                // onZeroAxisIndex:2,
+                                lineStyle:{
+                                    color:'#fff',
+                                },
+
+                            },
+                            axisLabel: {
+                                show: false,
+                                //formatter:"{value}%",
+                                formatter:function(value){
+                                    if(value===0){
+                                        return value;
+                                    }
+                                    return value+'%';
+
+                                },
+                                // showMinLabel:false,
+                                textStyle: {
+                                    color: '#fff',
+                                    fontSize:12,
+                                    fontWeight:'bold'
+                                },
+                            },
+                            axisTick: {
+                                show: false,
+                            },
+                        }],
+                    series: [{
+                        name: '应急事件',
+                        type: 'line',
+                        smooth: false,
+                      //  symbol:'none',
+                        symbol:'circle',
+                        showAllSymbol: true,
+                        symbolSize:6,
+                        lineStyle: {
+                            normal: {
+                                color:'#D7DF01',
+                                width:1
+                            },
+                            borderColor: 'rgb(255,255,0)'
+                        },
+                        label: {
+                            show: false,
+                            position: 'top',
+                            textStyle: {
+                                color: 'rgb(93,101,173)',
+                            }
+                        },
+                        itemStyle: {
+                            normal: {
+                                color: '#D7DF01',
+                            }
+                        },
+
+                        tooltip: {
+                            show: false
+                        },
+                        areaStyle: {
+                            normal: {
+                                //线性渐变，前4个参数分别是x0,y0,x2,y2(范围0~1);相当于图形包围盒中的百分比。如果最后一个参数是‘true’，则该四个值是绝对像素位置。
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                    offset: 0,
+                                    //  color: 'rgba(108,80,243,0.3)'
+                                    color:'rgba(255,255,0,0.3)'
+                                },
+                                    {
+                                        offset:1,
+                                        color:'rgba(255,255,0,0)'
+                                    }
+                                ], false),
+
+                               // shadowColor: 'rgba(255,255,0, 0.9)',
+                                shadowBlur:5 //shadowBlur设图形阴影的模糊大小。配合shadowColor,shadowOffsetX/Y, 设置图形的阴影效果。
+                            }
+                        },
+                        data: [55, 75,68,85,90,87]
+                    }]
+                };
+
+                myChart.setOption(option1);
+
+            } ,
+
+        },
+
+        mounted:function () {
+            this.getSafety()
+        }
+
+
+
+    })
+
+
+
+
+</script>
+
+
+</html>

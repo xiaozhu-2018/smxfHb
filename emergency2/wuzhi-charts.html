@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>应急物资统计</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <style type="text/css">
+
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+
+
+        body.supervise{
+            background-color: black;
+            /*background-color: rgba(255,255,255,0);*/
+        }
+
+        .flex-container{
+            border: 1px solid red;
+            display: -webkit-flex;
+            width:340px;
+            height:260px;
+            margin: 0px auto;
+        }
+
+        .item1-flex{
+            border: 1px solid blue;
+            box-sizing: border-box;
+            width:340px;
+            height: 260px;
+
+        }
+
+
+        [v-cloak]{
+            display: none;
+        }
+
+
+
+
+
+    </style>
+
+</head>
+<body class="supervise">
+
+
+<div class="container-fluid"   id="xf-supervise" v-cloak>
+    <!--风险隐患统计-->
+    <div class="flex-container">
+
+        <div class="item1-flex"   id="danger-supervise">
+
+        </div>
+
+
+    </div>
+
+
+
+</div>
+
+
+
+</body>
+
+<script type="text/javascript" src="../js/new-vue.js"> </script>
+<script src="../js/echarts.js"></script>
+<script type="text/javascript">
+    var vm=new Vue({
+        el:'#xf-supervise',
+        data:{
+
+        },
+        methods:{
+            getSafety(){
+                var myChart = echarts.init(document.getElementById('danger-supervise'));
+
+               var imgInfo='../img/icon_wuzi.png'
+
+                var scaleData = [
+                    {
+                        name: '消防物资',
+                        value: 116,
+                        itemStyle:{
+                            normal: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
+                                    offset:0.2,
+                                    color: '#2afadf'
+                                }, {
+                                    offset: 1,
+
+                                    color: '#00BFFF'
+                                }]),
+                            }
+                        }
+                    },
+                    {
+                        name: '医疗物资',
+                        value:53,
+                        itemStyle:{
+                            normal: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                    offset:0.3,
+                                    color: '#D7DF01'
+
+                                }, {
+                                    offset: 1,
+                                    color: '#DBA901'
+                                }]),
+                            }
+                        }
+                    },
+                    {
+                        name: '其他物资',
+                        value: 57,
+                        itemStyle:{
+                            normal: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                    offset:0.2,
+                                    color: '#FAFAFA'
+                                }, {
+                                    offset: 1,
+                                    color: '#F2F2F2'
+                                }]),
+                            }
+                        }
+                    },
+                  ];
+                let sum=0;
+                scaleData.forEach((item,index)=>{
+                    sum +=item.value;
+                })
+
+                let colors = ['#00BFFF', '#D7DF01', '#fff']
+                let legendData =[];
+                for (var j = 0; j < scaleData.length; j++) {
+                    var data = {
+                        name: scaleData[j].name,
+                        icon: 'circle',
+                        textStyle: {
+                            fontSize: 16,
+                            color: colors[j]
+                        }
+                    }
+                    legendData.push(data)
+                }
+                //隐藏值
+                var placeHolderStyle = {
+                    normal: {
+                        label: {
+                            show: false
+                        },
+                        labelLine: {
+                            show: false
+                        },
+                        color: 'rgba(0, 0, 0, 0)',
+                        borderColor: 'rgba(0, 0, 0, 0)',
+                        borderWidth: 0
+                    }
+                };
+                var data = [];
+                for (var i = 0; i < scaleData.length; i++) {
+                    data.push({
+                            value: scaleData[i].value,
+                            name: scaleData[i].name,
+                            itemStyle:scaleData[i].itemStyle
+                        },
+
+                        {
+                            value: 4,
+                            name: '',
+                            itemStyle: placeHolderStyle
+                        });
+                }
+                var seriesObj = [
+                    {
+                    name: '应急物资统计',
+                    type: 'pie',
+                    clockWise: false,
+                    center:['26%','50%'],
+                    radius: ['43%','49%'],
+                    startAngle:90,
+                    hoverAnimation: false,
+                    itemStyle: {
+                        normal: {
+                            label: {
+                                show: false,
+                            },
+                            labelLine: {
+                                show: false,
+                            }
+                        }
+                    },
+                    data: data
+                },
+
+                    {
+                        name: '圆圈',
+                        type: 'pie',
+                        clockWise: false,
+                        center:['26%','50%'],
+                        radius: ['36%'],
+                        hoverAnimation: false,
+                        itemStyle: {
+                            color:'#D8D8D8',
+                            normal: {
+                                label: {
+                                    show: false,
+                                },
+                                labelLine: {
+                                    show: false,
+                                }
+                            }
+                        },
+                        data:[{
+                            value:100,
+                            itemStyle:{
+                                color:'#BDBDBD',
+                                opacity: 0.2
+                            }
+                        }]
+
+                    },
+
+
+                ];
+                var option2 = {
+                    graphic:{
+                        type:"image",
+                        left:"21%",
+                        top:"43%",
+                        style:{
+                            image: imgInfo,
+                            width:36,
+                            height:36
+                        }
+                    },
+                    legend: {
+                        show:true,
+                        itemHeight:8,
+                        itemWidth:8,
+                        // orient: 'vertical',
+                        icon:'circle',
+                        top:'30%',
+                        data: legendData,
+                       itemGap:20,
+                       right:'4%',
+                        textStyle:{
+                          fontSize:16,
+                          orient: 'vertical',
+                          color:'#ddd',
+                          fontWeight:'bold',
+                            rich: {
+                                name: {
+
+                                    fontSize: 16,
+                                    color:'#ddd',
+                                    fontWeight:'bold',
+                                },
+                                percent: {color:'#D7DF01',
+                                    fontSize: 16,
+                                    fontWeight:'bold',
+                                    padding:[0,0,0,10],
+                                    },
+
+                            }
+
+                        },
+
+                        formatter: function(name) {
+                            var res=scaleData.filter(function(v){
+                                return v.name===name
+                            })
+                            let per=Math.round(res[0].value/sum*100)+'%';
+                            return ("{name| " + name + "} \t\t\t\t\t\t" + per + "");
+
+                        },
+
+
+                    },
+                    toolbox: {
+                        show: false
+                    },
+                    series: seriesObj
+                }
+                myChart.setOption(option2);
+
+            } ,
+
+        },
+
+        mounted:function () {
+            this.getSafety()
+        }
+
+
+
+    })
+
+
+
+
+</script>
+
+
+</html>
