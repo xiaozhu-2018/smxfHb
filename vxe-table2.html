@@ -30,6 +30,38 @@
                    <vxe-table-column field="type" title="Type"> </vxe-table-column>
                    <vxe-table-column field="date" title="Date"> </vxe-table-column>
                </vxe-table>
+                <h3>树形表格222</h3>
+               <vxe-table
+                       resizable
+                       
+                       :tree-config="{children: 'children'}"
+                       :data="tableData"
+                       :show-header="false"
+                       @select-change="selectChangeApi"
+                       :checkbox-config="{labelField: 'id', highlight: true, checkField:'checked'}"
+                      >
+                   <vxe-table-column type="checkbox" title="ID" width="280" tree-node></vxe-table-column>
+                   <vxe-table-column field="name" title="Name"> </vxe-table-column>
+                   <vxe-table-column field="size" title="Size"> </vxe-table-column>
+                   <vxe-table-column field="type" title="Type"> </vxe-table-column>
+                   <vxe-table-column field="date" title="Date"> </vxe-table-column>
+               </vxe-table>
+                <h3>树形表格3333</h3>
+               <vxe-table
+                       resizable
+                       
+                       :tree-config="{children: 'children'}"
+                       :data="tableData"
+                       :show-header="false"
+                       @select-change="selectChangeApi"
+                       :checkbox-config="{labelField: 'id', highlight: true, checkField:'checked'}"
+                      >
+                   <vxe-table-column type="checkbox" title="ID" width="280" tree-node></vxe-table-column>
+                   <vxe-table-column field="name" title="Name"> </vxe-table-column>
+                   <vxe-table-column field="size" title="Size"> </vxe-table-column>
+                   <vxe-table-column field="type" title="Type"> </vxe-table-column>
+                   <vxe-table-column field="date" title="Date"> </vxe-table-column>
+               </vxe-table>
 
            </div>
 
