@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>应急力量统计</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <style type="text/css">
+
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        body.supervise {
+            background-color: black;
+            /*background-color: rgba(255,255,255,0);*/
+        }
+
+        .flex-container {
+            border: 1px solid red;
+            display: -webkit-flex;
+            width: 295px;
+            height: 210px;
+            margin: 0px auto;
+        }
+
+        .item1-flex {
+            border: 1px solid blue;
+            box-sizing: border-box;
+            width: 295px;
+            height: 210px;
+
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+
+
+    </style>
+
+</head>
+<body class="supervise">
+
+
+<div class="container-fluid" id="xf-supervise" v-cloak>
+    <!--风险隐患统计-->
+    <div class="flex-container">
+
+        <div class="item1-flex" id="danger-supervise">
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+<script type="text/javascript" src="../js/new-vue.js"></script>
+<script src="../js/echarts2.min.js"></script>
+<script src="../js/echarts-gl.js"></script>
+
+
+<script type="text/javascript">
+    var vm = new Vue({
+        el: '#xf-supervise',
+        data: {},
+        methods: {
+            getSafety() {
+                var myChart = echarts.init(document.getElementById('danger-supervise'));
+
+                const CubeLeft = echarts.graphic.extendShape({
+                    shape: {
+                        x: 0,
+                        y: 0
+                    },
+                    buildPath: function(ctx, shape) {
+                        const xAxisPoint = shape.xAxisPoint
+                        const c0 = [shape.x, shape.y]
+                        const c1 = [shape.x - 9, shape.y - 9]
+                        const c2 = [xAxisPoint[0] - 9, xAxisPoint[1] - 9]
+                        const c3 = [xAxisPoint[0], xAxisPoint[1]]
+                        ctx.moveTo(c0[0], c0[1]).lineTo(c1[0], c1[1]).lineTo(c2[0], c2[1]).lineTo(c3[0], c3[1]).closePath()
+                    }
+                })
+                const CubeRight = echarts.graphic.extendShape({
+                    shape: {
+                        x: 0,
+                        y: 0
+                    },
+                    buildPath: function(ctx, shape) {
+                        const xAxisPoint = shape.xAxisPoint
+                        const c1 = [shape.x, shape.y]
+                        const c2 = [xAxisPoint[0], xAxisPoint[1]]
+                        const c3 = [xAxisPoint[0] + 18, xAxisPoint[1] - 9]
+                        const c4 = [shape.x + 18, shape.y - 9]
+                        ctx.moveTo(c1[0], c1[1]).lineTo(c2[0], c2[1]).lineTo(c3[0], c3[1]).lineTo(c4[0], c4[1]).closePath()
+                    }
+                })
+                const CubeTop = echarts.graphic.extendShape({
+                    shape: {
+                        x: 0,
+                        y: 0
+                    },
+                    buildPath: function(ctx, shape) {
+                        const c1 = [shape.x, shape.y]
+                        const c2 = [shape.x + 18, shape.y - 9]
+                        const c3 = [shape.x + 9, shape.y - 18]
+                        const c4 = [shape.x - 9, shape.y - 9]
+                        ctx.moveTo(c1[0], c1[1]).lineTo(c2[0], c2[1]).lineTo(c3[0], c3[1]).lineTo(c4[0], c4[1]).closePath()
+                    }
+                })
+                echarts.graphic.registerShape('CubeLeft', CubeLeft)
+                echarts.graphic.registerShape('CubeRight', CubeRight)
+                echarts.graphic.registerShape('CubeTop', CubeTop)
+                const MAX = [600, 600, 600,600, ]
+                const VALUE = [201, 123, 379, 234,]
+
+
+             var   option = {
+
+                 tooltip: {
+                     show: false,
+                     trigger: "item",
+                   //  formatter: "{a}<br>{b}:{c}({d}%)"
+                     backgroundColor: 'transparent',
+
+                 },
+                 grid: {
+                        left:'1%',
+                        right:'1%',
+                        top:'15%',
+                        bottom: '5%',
+                        containLabel:true
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: ['消防队伍', '医疗队伍', '警力队伍', '其他队伍'],
+                        axisLine: {
+                            show: false,
+                            lineStyle: {
+                                color: 'white'
+                            }
+                        },
+                        offset:5,
+                        axisTick: {
+                            show: false,
+                            length: 9,
+                            alignWithLabel: true,
+                            lineStyle: {
+                                color: '#7DFFFD'
+                            }
+                        },
+                        axisLabel: {
+                            fontSize: 13,
+                            fontWeight:'bold'
+                        }
+                    },
+
+
+                    yAxis: {
+                        type: 'value',
+                        axisLine: {
+                            show: false,
+                            lineStyle: {
+                                color: 'white'
+                            }
+                        },
+                        splitLine: {
+                            show: false
+                        },
+                        axisTick: {
+                            show: false
+                        },
+                        axisLabel: {
+                            show:false,
+                            fontSize: 16
+                        },
+                     // boundaryGap: ['120%', '120%']
+                    },
+                    series: [
+
+                        {
+                        type: 'custom',
+                        zLevel:1,
+                        renderItem: function(params, api) {
+                            const location = api.coord([api.value(0), api.value(1)])
+                            return {
+                                type: 'group',
+                                children: [
+                                    {
+                                    type: 'CubeLeft',
+                                    shape: {
+                                        api,
+                                        xValue: api.value(0),
+                                        yValue: api.value(1),
+                                        x: location[0],
+                                        y: location[1],
+                                        xAxisPoint: api.coord([api.value(0), 0])
+                                    },
+                                    style: {
+                                      //fill: 'rgba(7,29,97,.6)'
+                                        fill: 'rgba(105,105,105,0.7)'
+                                    }
+                                }, {
+                                    type: 'CubeRight',
+                                    shape: {
+                                        api,
+                                        xValue: api.value(0),
+                                        yValue: api.value(1),
+                                        x: location[0],
+                                        y: location[1],
+                                        xAxisPoint: api.coord([api.value(0), 0])
+                                    },
+                                    style: {
+                                        // fill: 'rgba(10,35,108,.7)'
+                                      fill: 'rgba(105,105,105,0.7)'
+                                    }
+                                }, {
+                                    type: 'CubeTop',
+                                    shape: {
+                                        api,
+                                        xValue: api.value(0),
+                                        yValue: api.value(1),
+                                        x: location[0],
+                                        y: location[1],
+                                        xAxisPoint: api.coord([api.value(0), 0])
+                                    },
+                                    style: {
+                                       //fill: 'rgba(11,42,106,.8)'
+                                        fill: 'rgba(105,105,105,.7)'
+                                    }
+                                }]
+                            }
+                        },
+                        data: MAX
+                    },
+
+                        {
+                        type: 'custom',
+                            zLevel:2,
+                        renderItem: (params, api) => {
+                            const location = api.coord([api.value(0), api.value(1)])
+                            return {
+                                type: 'group',
+
+                                children: [{
+                                    type: 'CubeLeft',
+                                    shape: {
+                                        api,
+                                        xValue: api.value(0),
+                                        yValue: api.value(1),
+                                  x: location[0],
+                                    //    x: location[1],
+                                   y: location[1],
+                                       // y: location[2],
+                                        xAxisPoint: api.coord([api.value(0), 0])
+                                    },
+                                    style: {
+                                        fill: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                            offset: 0,
+                                            //color: '#3B80E2'
+                                            color: '#81F7F3'
+                                        },
+                                            {
+                                                offset: 1,
+                                                //color: '#49BEE5'
+                                                color: '#A9F5F2'
+                                            }
+                                        ])
+                                    }
+                                }, {
+                                    type: 'CubeRight',
+                                    shape: {
+                                        api,
+                                        xValue: api.value(0),
+                                        yValue: api.value(1),
+                                    x: location[0],
+                                     //   x: location[1],
+                                     y: location[1],
+                                       // y: location[2],
+                                        xAxisPoint: api.coord([api.value(0), 0])
+                                    },
+                                    style: {
+                                        fill: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                            offset: 0,
+                                          //  color: '#3B80E2'
+                                            color: '#81F7F3'
+                                        },
+                                            {
+                                                offset: 1,
+                                               // color: '#49BEE5'
+                                                color: '#A9F5F2'
+                                            }
+                                        ])
+                                    }
+                                }, {
+                                    type: 'CubeTop',
+                                    shape: {
+                                        api,
+                                        xValue: api.value(0),
+                                        yValue: api.value(1),
+                                  x: location[0],
+                                     //   x: location[1],
+                                  y: location[1],
+                                      //  y: location[2],
+                                        xAxisPoint: api.coord([api.value(0), 0])
+                                    },
+                                    style: {
+                                        fill: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                            offset: 0,
+                                           // color: '#3B80E2'
+                                            color: '#81F7F3'
+                                        },
+                                            {
+                                                offset: 1,
+                                               // color: '#49BEE5'
+                                                color: '#A9F5F2'
+                                            }
+                                        ])
+                                    }
+                                }]
+                            }
+                        },
+                        data: VALUE
+                    },
+
+
+
+                        {
+                        type: 'bar',
+                        label: {
+                            normal: {
+                                show: false,
+                                position: 'top',
+                                formatter: (e) => {
+                                    switch (e.name) {
+                                        case '10kV线路':
+                                            return VALUE[0]
+                                        case '公用配变':
+                                            return VALUE[1]
+                                        case '35kV主变':
+                                            return VALUE[2]
+                                        case '水':
+
+                                    }
+                                },
+                                fontSize: 16,
+                                color: '#fff',
+                          offset: [4, -25]
+                            }
+                        },
+                        itemStyle: {
+                            color: 'transparent'
+                        },
+                        data: MAX
+                    }]
+                }
+
+
+
+
+                myChart.setOption(option);
+
+            },
+
+        },
+
+        mounted: function () {
+            this.getSafety()
+        }
+
+
+    })
+
+
+</script>
+
+
+</html>

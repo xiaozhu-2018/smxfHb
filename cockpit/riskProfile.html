@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
+<title>风险概况展示</title>
+
+<style type="text/css">
+	*{
+            margin: 0px;
+            padding: 0px;
+		box-sizing: border-box;
+        }
+	 html,body{
+		 height: 100%;
+
+	 }
+	  body{
+            /*background-color: black;*/
+            background-color: rgba(255,255,255,0);
+
+        }
+	body::-webkit-scrollbar{
+        display: none;
+    }
+</style>
+</head>
+
+<body>
+<div id="container" style="height: 100%;"></div>
+<script src="../js/echarts.js"></script>
+
+ <script type="text/javascript">
+	 var dom = document.getElementById("container");
+	 var myChart = echarts.init(dom);
+	 var option = {
+
+    title: {
+		show:false,
+        text: '风险概况展示',
+		textStyle:{color: '#FFFFFF'}
+    },
+    radar: {
+		startAngle: 112.5,//22.5,
+		radius: 50,
+        splitNumber: 5,
+		center: ['47%', '47%'],
+        name: {
+                formatter: '{value}',
+                textStyle: {
+                    color: '#FFFFFF',
+					fontSize: 14
+                }
+            },
+        splitArea: {
+                areaStyle: {
+                    color: ['rgba(255,255,255,0)',
+                        'rgba(255,255,255,0)', 'rgba(255,255,255,0)'],
+                    shadowColor: 'rgba(255, 255, 2, 0)',
+                    shadowBlur: 10
+                }
+            },
+            axisLine: {
+                lineStyle: {
+                    color: 'rgba(255,255,255,0)'
+                }
+            },
+             splitLine: {
+                lineStyle: {
+                    color: ['rgba(136,207,218, 1)','rgba(136,207,218, 0)','rgba(136,207,218, 0)','rgba(136,207,218, 0.5)','rgba(136,207,218, 0.7)']
+                }
+            },
+        indicator: [
+			{
+                name: '道路交通',
+                max: 100
+            },
+            {
+                name: '卫生疾控',
+                max: 100
+            },
+            {
+                name: '民政救灾',
+                max: 100
+            },
+            {
+                name: '地质灾害',
+                max: 100
+            },
+            {
+                name: '安全生产',
+                max: 100
+            },
+            {
+                name: '草原防火',
+                max: 100
+            },
+			 {
+                name: '深林防火',
+                max: 100
+            },
+			{
+                name: '消防救援',
+                max: 100
+            }
+        ]
+    },
+    series: [{
+        name: '风险概况展示',
+        type: 'radar',
+		symbol: 'none',
+        areaStyle: {
+            normal: {color:'rgba(220,231,38,0.6)'}
+        },
+        data: [{
+            value: [45, 70, 69, 50, 40, 30,72,50],
+			itemStyle: {
+                    normal: {
+                        color: 'rgba(255,225,255,0)',
+                        lineStyle: {
+                            color: 'rgba(255,225,255,0)',
+                        },
+                    },
+                }
+			        }]
+    }]
+
+	 };
+	 if (option && typeof option === "object") {
+    myChart.setOption(option, true);
+}
+
+</script>
+</body>
+</html>

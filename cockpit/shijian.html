@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>应急事件统计</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <style type="text/css">
+
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        body.supervise {
+            /*background-color: black;*/
+            background-color: rgba(255,255,255,0);
+        }
+
+        .flex-container {
+            /*border: 1px solid red;*/
+            display: -webkit-flex;
+            width: 340px;
+            height: 230px;
+            margin: 0px auto;
+        }
+
+        .item1-flex {
+            /*border: 1px solid blue;*/
+            box-sizing: border-box;
+            width: 340px;
+            height: 230px;
+
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+
+
+    </style>
+
+</head>
+<body class="supervise">
+
+
+<div class="container-fluid" id="xf-supervise" v-cloak>
+    <!--风险隐患统计-->
+    <div class="flex-container">
+
+        <div class="item1-flex" id="danger-supervise">
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+<script type="text/javascript" src="../js/new-vue.js"></script>
+<script src="../js/echarts.js"></script>
+<script type="text/javascript">
+    var vm = new Vue({
+        el: '#xf-supervise',
+        data: {},
+        methods: {
+            getSafety() {
+                var myChart = echarts.init(document.getElementById('danger-supervise'));
+                var data = [
+
+                    {
+                        name: "Ⅳ级事件",
+                        value: 22,
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                    offset:0.2,
+                                    color: '#01A9DB'
+                                }, {
+                                    offset: 1,
+                                    color: '#2afadf'
+                                }]),
+
+
+
+                    },
+                    {
+                        name: "Ⅲ级事件",
+                        value: 20,
+                        color: new echarts.graphic.LinearGradient(1, 0, 0, 0, [{
+                                    offset:0.2,
+                                    color: '#AEB404'
+
+                                }, {
+                                    offset: 1,
+                                    color: '#FFFF00'
+                                }]),
+
+
+                    },
+
+                    {
+                        name: "Ⅱ级事件",
+                        value: 12,
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                    offset:0.2,
+                                    color: '#DF7401'
+
+                                }, {
+                                    offset: 0.8,
+                                    color: '#FAAC58'
+                                }]),
+
+
+                    },
+                    {
+                        name: "Ⅰ级事件",
+                        value: 9,
+                        color: '#B40404'
+                    },
+
+                ];
+
+                var arrValue = getArrayValue(data, "value");
+                var sumValue = eval(arrValue.join('+'));
+
+                var optionData = getData(data)
+
+                function getArrayValue(array, key) {
+                    var key = key || "value";
+                    var res =[];
+                    if (array) {
+                        array.forEach(function (t) {
+                            res.push(t[key]);
+                        });
+                    }
+                    return res;
+                }
+
+
+                function getData(data) {
+                    var res = {
+                        series: [],
+                        yAxis: []
+                    };
+                    for (let i = 0; i < data.length; i++) {
+                        res.series.push({
+                            name: '',
+                            type: 'pie',
+                            clockWise: false, //顺时加载
+                            hoverAnimation: false, //鼠标移入变大
+                            radius: [68 - i * 15 + '%', 63 - i * 15 + '%'],
+                            center: ["30%", "55%"],
+                            label: {
+                                show: false
+                            },
+                            itemStyle: {
+                                label: {
+                                    show: false,
+                                },
+                                labelLine: {
+                                    show: false
+                                },
+                                borderWidth: 5,
+                            },
+                            data: [{
+                                value: data[i].value,
+                                name: data[i].name
+                            }, {
+                                value: sumValue - data[i].value,
+                                name: '',
+                                itemStyle: {
+                                    color: "rgba(0,0,0,0)",
+                                    borderWidth: 0
+                                },
+                                tooltip: {
+                                    show: false
+                                },
+                                hoverAnimation: false
+                            }
+
+                            ]
+
+                        });
+
+                        res.series.push({
+                            name: '',
+                            type: 'pie',
+                            silent: true,
+                            z: 1,
+                            clockWise: false, //顺时加载
+                            hoverAnimation: false, //鼠标移入变大
+                            radius: [68 - i * 15 + '%', 63 - i * 15 + '%'],
+                            center: ["30%", "55%"],
+                            label: {
+                                show: false
+                            },
+                            itemStyle: {
+                                label: {
+                                    show: false,
+                                },
+                                labelLine: {
+                                    show: false
+                                },
+                                borderWidth: 5,
+                            },
+                            data: [
+                                {
+                                value: 7.5,
+                                itemStyle: {
+                                    color: "rgb(3, 31, 62)",
+                                    borderWidth: 0
+                                },
+                                tooltip: {
+                                    show: false
+                                },
+                                hoverAnimation: false
+                            },
+                                {
+                                value: 2.5,
+                                name: '',
+                                itemStyle: {
+                                    color: "rgba(0,0,0,0)",
+                                    borderWidth: 0
+                                },
+                                tooltip: {
+                                    show: false
+                                },
+                                hoverAnimation: false
+                            }
+                            ]
+                        });
+                        res.yAxis.push((data[i].value / sumValue * 100).toFixed(2) + "%");
+                    }
+                    return res;
+                }
+                let colors = [
+                    new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                    offset:0.2,
+                    color: '#01A9DB'
+                }, {
+                    offset: 1,
+                    color: '#2afadf'
+                }]),  new echarts.graphic.LinearGradient(1, 0, 0, 0, [{
+                    offset:0.2,
+                    color: '#AEB404'
+
+                }, {
+                    offset: 1,
+                    color: '#FFFF00'
+                }]), new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                    offset:0.2,
+                    color: '#DF7401'
+
+                }, {
+                    offset: 0.8,
+                    color: '#FAAC58'
+                }]), new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                    offset:0.2,
+                    color: '#FA5858'
+
+                }, {
+                    offset: 0.8,
+                    color: '#B40404'
+                }]),];
+                let colors2 = ['#01A9DB', '#FFFF00','#DF7401', '#B40404']
+                let legendData =[];
+                for (var j = 0; j < data.length; j++) {
+                    var data2 = {
+                        name: data[j].name,
+                        icon: 'circle',
+                        textStyle: {
+                            fontSize: 16,
+                            fontWeight:'bold',
+                            color: colors2[j]
+                        }
+                    }
+                    legendData.push(data2)
+                }
+
+                var option = {
+
+                    legend:[
+                        {
+                        show: true,
+                        icon: "circle",
+                        top:'20%',
+                        left: '57%',
+                        data: [{name:'Ⅰ级事件',textStyle:{
+
+                                color:'#B40404'
+                            }},],
+                        itemWidth: 8,
+                        itemHeight: 8,
+                       orient:'vertical',
+                        itemGap: 15,
+                        formatter: function (name) {
+                            var res=data.filter(function(v){
+                                return v.name===name
+                            })
+                           // return "{title|" + res[0].name + "}\t\t\t\t\t\t{value|" + (res[0].value) + "}"
+                           return "{title|" + name + "}\t\t\t\t\t\t{value|" + (res[0].value) + "}"
+                        },
+                        textStyle: {
+                            rich: {
+                                title: {
+                                    fontSize: 16,
+                                    lineHeight: 15,
+                                    color: "#fff"
+                                },
+                                value: {
+                                    fontSize: 20,
+                                    fontWeight:'bold',
+
+                                }
+                            }
+                        },
+                    },
+                        {
+                            show: true,
+                            icon: "circle",
+                            top:'35%',
+                            left: '57%',
+                            data: [{name:'Ⅱ级事件',textStyle:{
+
+                                    color:'#DF7401'
+                                }},],
+                            itemWidth: 8,
+                            itemHeight: 8,
+                            orient:'vertical',
+                            itemGap: 15,
+                            formatter: function (name) {
+                                var res=data.filter(function(v){
+                                    return v.name===name
+                                })
+                                // return "{title|" + res[0].name + "}\t\t\t\t\t\t{value|" + (res[0].value) + "}"
+                                return "{title|" + name + "}\t\t\t\t\t\t{value|" + (res[0].value) + "}"
+                            },
+                            textStyle: {
+                                rich: {
+                                    title: {
+                                        fontSize: 16,
+                                        lineHeight: 15,
+                                        color: "#fff"
+                                    },
+                                    value: {
+                                        fontSize: 20,
+                                        fontWeight:'bold',
+
+                                    }
+                                }
+                            },
+                        },
+                        {
+                            show: true,
+                            icon: "circle",
+                            top:'50%',
+                            left: '57%',
+                            data: [{name:'Ⅲ级事件',textStyle:{
+
+                                    color:'#FFFF00'
+                                }},],
+                            itemWidth: 8,
+                            itemHeight: 8,
+                            orient:'vertical',
+                            itemGap: 15,
+                            formatter: function (name) {
+                                var res=data.filter(function(v){
+                                    return v.name===name
+                                })
+                                // return "{title|" + res[0].name + "}\t\t\t\t\t\t{value|" + (res[0].value) + "}"
+                                return "{title|" + name + "}\t\t\t\t\t\t{value|" + (res[0].value) + "}"
+                            },
+                            textStyle: {
+                                rich: {
+                                    title: {
+                                        fontSize: 16,
+                                        lineHeight: 15,
+                                        color: "#fff"
+                                    },
+                                    value: {
+                                        fontSize: 20,
+                                        fontWeight:'bold',
+
+
+                                    }
+                                }
+                            },
+                        },
+                        {
+                            show: true,
+                            icon: "circle",
+                            top:'65%',
+                            left: '57%',
+                            data: [{name:'Ⅳ级事件',textStyle:{
+
+                                    color:'#01A9DB'
+                                }},],
+                            itemWidth: 8,
+                            itemHeight: 8,
+                            orient:'vertical',
+                            itemGap: 15,
+                            formatter: function (name) {
+                                var res=data.filter(function(v){
+                                    return v.name===name
+                                })
+
+                                return "{title|" + name + "}\t\t\t\t\t\t{value|" + (res[0].value) + "}"
+                            },
+                            textStyle: {
+                                rich: {
+                                    title: {
+                                        fontSize: 16,
+                                        lineHeight: 15,
+                                        color: "#fff"
+                                    },
+                                    value: {
+                                        fontSize: 20,
+                                        fontWeight:'bold',
+
+
+                                    }
+                                }
+                            },
+                        },
+                    ],
+
+
+
+                    tooltip: {
+                        show: true,
+                        trigger: "item",
+                        formatter: "{a}<br>{b}:{c}({d}%)"
+                    },
+                 color:colors ,
+                    grid: {
+                        top: '16%',
+                        bottom: '53%',
+                        left: "30%",
+                        containLabel: false
+                    },
+                    yAxis: [{
+                        type: 'category',
+                        inverse: true,
+                        axisLine: {
+                            show: false
+                        },
+                        axisTick: {
+                            show: false
+                        },
+                        axisLabel: {
+                            interval: 0,
+                            inside: true,
+                            textStyle: {
+                                color: "#fff",
+                                fontSize: 16,
+                            },
+                            show: false
+                        },
+                        data: optionData.yAxis
+                    }],
+                    xAxis: [{
+                        show: false
+                    }],
+                    series: optionData.series
+                };
+
+                myChart.setOption(option);
+
+            },
+
+        },
+
+        mounted: function () {
+            this.getSafety()
+        }
+
+
+    })
+
+
+</script>
+
+
+</html>

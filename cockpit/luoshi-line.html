@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>预警落实情况</title>
+
+
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <style type="text/css">
+
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+
+
+        body.supervise{
+            /*background-color: black;*/
+            background-color: rgba(255,255,255,0);
+        }
+
+        .flex-container{
+            /*border: 1px solid red;*/
+            display: -webkit-flex;
+            width:310px;
+           height:190px;
+            margin: 0px auto;
+        }
+
+        .item1-flex{
+            box-sizing: border-box;
+           width:310px;
+           heigh: 190px;
+            /*border: 1px solid blue;*/
+        }
+
+        [v-cloak]{
+            display: none;
+        }
+
+
+
+
+
+    </style>
+
+</head>
+<body class="supervise">
+
+
+<div class="container-fluid"   id="xf-supervise" v-cloak>
+    <!--风险隐患统计-->
+    <div class="flex-container">
+        <div class="item1-flex"   id="danger-supervise">
+        </div>
+    </div>
+
+</div>
+
+
+
+</body>
+
+<script type="text/javascript" src="../js/new-vue.js"> </script>
+<script src="../js/echarts.js"></script>
+<script type="text/javascript">
+    var vm=new Vue({
+        el:'#xf-supervise',
+        data:{
+
+        },
+        methods:{
+            getSafety(){
+                var myChart = echarts.init(document.getElementById('danger-supervise'));
+                var option ={
+                    grid: {
+                        top: '30%',
+                        bottom:'3%',
+                        left:'3%',
+                        right:'5%',
+                        containLabel:true
+                    },
+                    legend:{
+                      data:[
+                          {name:'预警数量',
+                              textStyle:{
+                                  color:'#fff',
+                                  fontWeight:'bold',
+                                  fontSize:14,
+                              },
+
+
+                      },{name:'预警落实'},],
+                      textStyle:{
+                          color:'#fff',
+                          fontWeight:'bold',
+                          fontSize:14,
+                        },
+                        icon:'rect',
+                        itemWidth:20,
+                        itemHeight:3,
+                        itemGap:50,
+                    },
+                    tooltip : {
+                        show:true ,
+                        trigger:'item'
+                    },
+                    xAxis : [
+                        {
+                            type : 'category',
+                            boundaryGap : false,
+                            axisLabel: {
+                                interval:0,
+                                textStyle: {
+                                    color: '#fff',
+                                    fontSize:14,
+                                    fontWeight:'bold'
+                                },
+                            },
+                            axisLine: {
+                                show: true,
+                                lineStyle: {
+                                    color: '#fff',
+                                    opacity:'0.7',
+                                    width:2
+                                },
+                            },
+                            axisTick:{
+                                show:false,
+                            },
+                            splitLine:{
+                                show:false,
+                                lineStyle:{
+                                    color:'#195384'
+                                }
+                            },
+                            data : ['1月','2月','3月','4月','5月','6月']
+                        }
+                    ],
+                    yAxis : [{
+                            type : 'value',
+
+                            axisLabel : {
+                                show:false,
+                                formatter: '{value}',
+                                textStyle:{
+                                    color:'#2ad1d2'
+                                }
+                            },
+                            axisLine:{
+                                show:false,
+                                lineStyle:{
+                                    color:'#27b4c2'
+                                }
+                            },
+                            axisTick:{
+                                show:false,
+                            },
+                            splitLine:{
+                                show:false,
+                                lineStyle:{
+                                    color:'#11366e'
+                                }
+                            }
+                        },],
+                    series : [
+                        {
+                            name:'预警数量',
+                            type:'line',
+                            symbol:'none',
+                            smooth:true,
+                            symbolSize:6,
+                            lineStyle: {
+                                normal: {
+                                    color:'#7DFFFD',
+                                    width:1
+                                },
+                                borderColor: '#7DFFFD'
+                            },
+                            itemStyle: {
+                                normal: {
+                                    color:'#7DFFFD',
+                                    borderColor: '#7DFFFD',
+                                    borderWidth: 2,
+                                },
+
+                            },
+                            data: [30, 45,63,32,45,50]
+                        },
+
+                        {
+                            name:'预警落实',
+                            type:'line',
+                            symbol:'none',
+                            smooth:true,
+                            symbolSize: 8,
+                            lineStyle: {
+                                normal: {
+                                    color:'#FE2E2E',
+                                    width:1
+                                },
+                                borderColor: '#FE2E2E'
+                            },
+                            itemStyle: {
+                                normal: {
+                                    color:'#FE2E2E',
+                                },},
+                            data: [46, 63,65,55,60,56]
+                        },
+                    ]
+                };
+                myChart.setOption(option);
+
+            } ,
+
+        },
+
+        mounted:function () {
+            this.getSafety()
+        }
+
+
+
+    })
+
+
+
+
+</script>
+
+
+</html>
