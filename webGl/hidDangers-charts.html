@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>隐患整治情况</title>
+
+</head>
+<style type="text/css">
+
+    *{
+        margin: 0px;
+        padding: 0px;
+    }
+    body.supervise{
+        background-color:black;
+        /*background-color:rgba(255,255,255,0);*/
+
+    }
+
+    /*width=380*/
+    .flex-container{
+        height:530px;
+        width: 380px;
+        border: 1px solid red;
+        box-sizing: border-box;
+        /*flex-direction: column;*/
+        /*display: -webkit-flex;*/
+        /*display: flex;*/
+        /*margin: 30px auto;*/
+    }
+
+    .item1-flex{
+        height:300px;
+        width:380px;
+        border: 1px solid blue;
+        box-sizing: border-box;
+    }
+
+    .item2-flex{
+        height:230px;
+        width:380px;
+        border: 1px solid blue;
+        box-sizing: border-box;
+    }
+
+
+    ::-webkit-scrollbar {
+        display: none;
+    }
+
+    [v-cloak]{
+        display: none;
+    }
+
+
+
+
+
+</style>
+
+
+
+<body class="supervise"  >
+
+
+
+<div  class="container-fluid" id="supervise-home" v-cloak>
+    <div class="supervise-charts">
+        <div class="flex-container">
+            <div class="item1-flex"  id="home-safe">  </div>
+
+            <div class="item2-flex"  >
+            <div class="chars2" style="width: 100%;height: 100%;" id="home-safe2">  </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+
+</body>
+<script type="text/javascript" src="../js/new-vue.js"> </script>
+<script src="../js/echarts.js"></script>
+<script type="text/javascript">
+    var vm=new Vue({
+        el:'#supervise-home',
+        data:{
+
+
+        },
+        methods:{
+            getSafe(){
+                var myChart1 = echarts.init(document.getElementById('home-safe'));
+
+                var scale1Data = [
+                    {
+                        name: '已整治数量',
+                        value: 436,
+                        itemStyle:{
+                            normal: {
+                                color: new echarts.graphic.LinearGradient(1, 0, 0, 0, [{
+                                    offset:0.2,
+                                    color: '#2ACFCD'
+                                }, {
+                                    offset: 1,
+
+                                    color: '#03A8A6'
+                                }]),
+                                borderWidth: 5,
+                                borderColor: '#03A8A6',
+                            }
+                        }
+                    },
+
+                    {
+                        name: '待整治数量',
+                        value: 153,
+                        itemStyle:{
+                            normal: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                    offset:0.2,
+                                    color: '#FEBF63'
+                                }, {
+                                    offset: 1,
+                                    color: '#D59E4E'
+                                }]),
+                                borderWidth: 5,
+                                borderColor: '#D59E4E',
+                            }
+                        }
+                    },
+                   ];
+                let sum=0;
+                scale1Data.forEach((item,index)=>{
+                    sum +=item.value;
+                })
+
+                let legendData =[];
+                for (var j = 0; j < scale1Data.length; j++) {
+                    var data = {
+                        name: scale1Data[j].name,
+                        icon: 'circle',
+                        textStyle: {
+                            fontSize: 16,
+                        }
+                    }
+                    legendData.push(data)
+                }
+                //隐藏值
+                var placeHolderStyle = {
+                    normal: {
+                        label: {
+                            show: false
+                        },
+                        labelLine: {
+                            show: false
+                        },
+                        color: 'rgba(0, 0, 0, 0)',
+                        borderColor: 'rgba(0, 0, 0, 0)',
+                        borderWidth: 0
+                    }
+                };
+                var data = [];
+                for (var i = 0; i < scale1Data.length; i++) {
+                    data.push({
+                            value: scale1Data[i].value,
+                            name: scale1Data[i].name,
+                            label:scale1Data[i].label,
+                            itemStyle:scale1Data[i].itemStyle
+                        },
+                        {
+                            value:10,
+                            name: '',
+                            labelLine:{
+                              show:false
+                            },
+                            label:{
+                                show:false,
+                            },
+                            itemStyle: placeHolderStyle
+                        });
+                };
+                var imgInfo='../../assets/webImg/yinhuang.png'
+                var option = {
+                    // tooltip: {
+                    //     trigger: 'item',
+                    //     formatter: '{b}<br/> {c}栋 ({d}%)'
+                    // },
+                    title: [{
+                            text: '{name|隐患信息}',
+                            top: '48%',
+                            left:'39%',
+                            textStyle: {
+                                rich: {
+                                    name: {
+                                        fontSize: 18,
+                                        fontWeight:'bold',
+                                        color: '#fff',
+                                        fontFamily:'Microsoft YaHei'
+
+                                    },
+
+                                }
+                            }
+                        }],
+                    graphic:{
+                        type:"image",
+                        left:"45%",
+                        top:"36%",
+                        style:{
+                            image: imgInfo,
+                            width:36,
+                            height:36
+                        }
+                    },
+                    legend: [
+                        {
+                        orient:'horizontal',
+                        left:'center',
+                        //itemGap:1,
+                         itemHeight:10,
+                         itemWidth:22,
+                        textStyle: {
+                            color: '#ffffff',
+                            fontSize: 14,
+                            fontFamily:'Microsoft YaHei',
+                            fontWeight:'bold'
+                        },
+                        icon: 'roundRect',
+                        data: ['已整治数量','待整治数量'],
+                    },
+
+                    ],
+                    series: [
+                        // 主要展示层的
+                        {
+                            radius: ['50%', '52%'],
+                            center: ['50%', '45%'],
+                            type: 'pie',
+                            startAngle:-20,
+                            hoverOffset:0,
+                            labelLine:{
+                              show:true,
+                              length:25,
+                              length2:60,
+                            //  smooth:true,
+                              lineStyle:{
+                                  color:'#fff',
+
+                                  width:1
+                              }
+                            },
+                            label: {
+                                show:true,
+                                normal:{
+                                    fontSize: 12,
+                                    fontFamily:'Microsoft YaHei',
+                                    fontWeight:'bold',
+                                    position: 'outside',
+                                    color:'#fff',
+                                    formatter: function(params, ticket, callback) {
+                                        var total = 0; //总数量
+                                        var percent = 0; //占比
+                                        scale1Data.forEach(function(value, index, array) {
+                                            total += value.value;
+                                        });
+                                        percent = ((params.value / total) * 100).toFixed(1);
+                                        if(params.name==='已整治数量'){
+                                            return '{white1|' + params.value + '}\n{hr|}\n{blue1|' + percent + '%}';
+                                        }
+                                        if(params.name==='待整治数量'){
+                                            //return '{white|' + params.value + '}\n{hr|}\n{blue2|' + percent + '%}';
+                                            return '{blue2|' + percent + '%}\n{hr|}\n{white2|' + params.value + '}';
+                                        }
+                                      //  return '{white|' + params.value + '}\n{hr|}\n{blue|' + percent + '%}';
+                                    },
+                                    padding:[0,-60],
+                                   rich: {
+                                       white1: {
+                                           color: "#fff",
+                                           align: 'center',
+                                           fontSize: 16 ,
+                                           fontFamily:'Microsoft YaHei',
+                                           fontWeight:'bold',
+                                           padding: [0,0,5,40 ]
+                                       },
+                                       white2:{
+                                           color: "#fff",
+                                           align: 'center',
+                                           fontSize: 16 ,
+                                           fontFamily:'Microsoft YaHei',
+                                           fontWeight:'bold',
+                                           padding: [15,40,0,0 ]
+                                       },
+
+                                       // hr: {
+                                       //     borderColor: '#fff',
+                                       //     width: '100%',
+                                       //     borderWidth: 1,
+                                       //     height: 0,
+                                       // },
+
+                                       blue1: {
+                                           color: '#03A8A6',
+                                           align: 'center',
+                                          padding:[5,0,0,40],
+                                           fontSize:18,
+                                           fontFamily:'Microsoft YaHei',
+                                           fontWeight:'bold',
+
+                                       },
+                                       blue2: {
+                                           color: '#FEBF63',
+                                           align: 'center',
+                                           fontSize:18,
+                                           fontFamily:'Microsoft YaHei',
+                                           fontWeight:'bold',
+                                          padding:[0,40,15,0]
+                                       },
+                                   }
+                                },
+
+                            },
+
+                            data: data,
+
+                        },
+
+
+
+                    ]
+                };
+
+                myChart1.setOption(option);
+            },
+            getSafe2(){
+                var myChart1 = echarts.init(document.getElementById('home-safe2'));
+
+                var option={
+                    tooltip : {
+                        trigger: 'axis',
+                        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                            type : 'shadow',        // 默认为直线，可选为：'line' | 'shadow'
+                        }
+                    },
+                    grid: {
+                        left: '6%',
+                        bottom: '5%',
+                        top:'20%',
+                        containLabel: true
+                    },
+                    title: [
+                        // {
+                        //     text: '{name|加固}',
+                        //     // top: '25%',
+                        //     bottom: '30%',
+                        //     left:'5%',
+                        //     textStyle: {
+                        //         rich: {
+                        //             name: {
+                        //                 fontSize: 14,
+                        //                 color: '#fff',
+                        //                 fontFamily:'Microsoft YaHei'
+                        //
+                        //             },
+                        //
+                        //         }
+                        //     }
+                        // },
+                        {
+                            text: '{name|已治理情况统计}',
+                            top: '2%',
+                            left:'8%',
+                            textStyle: {
+                                rich: {
+                                    name: {
+                                        fontSize: 18,
+                                        fontWeight:'bold',
+                                        color: '#fff',
+                                        fontFamily:'Microsoft YaHei'
+
+                                    },
+
+                                }
+                            }
+                        }
+
+                    ],
+
+                    xAxis:  {
+                        type: 'value',
+                        // minInterval:250,
+                        axisTick: {
+                            show: false,
+                        },
+                        splitLine: {
+                            show: false,
+                            lineStyle: {
+                                color:'rgb(93,101,173)',
+                                width:0.5
+                            }
+                        },
+                        axisLine: {
+                            show: false  ,
+                            lineStyle:{
+                                color:'#fff',
+                            }
+                        },
+
+                        axisLabel:{
+                            show:false
+                        },
+                    },
+                    yAxis: {
+                        type: 'category',
+                        data: [{value:'封房',textStyle:{
+                                color:'#fff',
+
+                            }},'修缮加固','拆除',],
+                        axisLine:{
+                            show:true,
+                            lineStyle:{
+                                show:false,
+                                color:'#979797',
+                                width:1
+                            }
+                        },
+                        splitLine: {
+                            show: false
+                        },
+                        axisTick: {
+                            show: false
+                        },
+                        axisLabel:{
+                            color:'#fff',
+                            fontSize:14,
+                            fontFamily:'Microsoft YaHei',
+                            // formatter: function(val) {
+                            //     var strs = val.split(''); //字符串数组
+                            //     console.log(strs);
+                            //     var str = ''
+                            //     for (var i =0, s; s = strs[i++];) { //遍历字符串数组
+                            //         str += s;
+                            //         str += '\n'; //按需要求余
+                            //     }
+                            //     return str
+                            // },
+                        },
+                    },
+                    series: [
+                        {
+                            type:'bar',
+                            barWidth: '23%',
+                            label: {
+                                show:true,
+                                fontSize:16,
+                                color:'#fff',
+                                fontWeight:'bold',
+                                position:'right'
+
+                            },
+                            data:[
+                                {
+                                    value:186,
+                                    label: {
+                                    normal:{
+                                            show: true,
+                                            position: 'right',
+                                            formatter:'{c}',
+                                            fontSize:16,
+                                        }
+                                    },
+                                    itemStyle:{
+                                        normal:{
+                                            color: '#66FFFF'
+                                        },}
+                                },
+                                {
+                                    value:28,
+                                    label:{
+                                        normal: {
+                                            position: 'right',
+                                            formatter:'{c}',
+                                            fontSize:16,
+                                        }
+                                    },
+                                    itemStyle:{
+                                        normal:{
+                                            color: '#66FFFF'},}
+                                },
+                                {
+                                    value:14,
+                                    label: {
+                                     normal:{
+                                            position: 'right',
+                                            formatter:'{c}',
+                                            fontSize:16,
+                                        }
+                                    },
+                                    itemStyle:{
+                                        normal:{
+                                            color: '#66FFFF'},}
+                                 }
+
+                            ],
+                        },
+                        {
+                            name: '圆',
+                            type: 'pie',
+                            clockWise: false, //顺时加载
+                            hoverAnimation: false, //鼠标移入变大
+                            center: ['3%', '8%'],
+                            radius:'4%',
+
+                            label: {
+                                normal: {
+                                    show: false
+                                }
+                            },
+                            data: [
+
+                                {
+                                    value: 100,
+                                    itemStyle: {
+                                        normal: {
+                                            color: '#03A8A6',
+
+                                        }
+                                    }
+                                },
+
+                            ]
+                        },
+                    ]
+                };
+                myChart1.setOption(option);
+            },
+
+        },
+
+        mounted:function () {
+            this.getSafe()
+            this.getSafe2()
+        }
+
+
+
+
+    })
+
+
+
+
+
+</script>
+
+
+
+</html>
