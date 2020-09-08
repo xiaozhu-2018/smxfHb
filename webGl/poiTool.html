@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>poi工具</title>
+    <link rel="stylesheet" href="../assets/icon/icon.css">
+    <link rel="stylesheet" href="../assets/icon/iconfont.css">
+    <script type="text/javascript" src="../js/new-vue.js"> </script>
+
+<style type="text/css">
+    *{
+        margin: 0px;
+        padding: 0px;
+    }
+    [v-cloak]{
+        display: none;
+    }
+    .tool-content{
+        display: -webkit-flex;
+        min-width: 455px;
+        /*border: 1px solid green;*/
+    }
+    .left-list{
+        width:95%;
+
+    }
+
+
+
+    /*控制显示按钮*/
+    .touch-point{
+        width: 5%;
+        border: 1px solid red;
+        height: 104px;
+    }
+
+
+
+
+
+    .title-slide{
+        min-width: 26px;
+        height: 70px;
+        margin-top:17px;
+        box-sizing: border-box;
+        background: rgba(255,255,255,1);
+        box-shadow:3px 2px 5px 0px rgba(42,42,42,0.5);
+        border: 1px solid blue;
+        text-align: center;
+    }
+
+    .title-slide .slide-icon{
+        margin-top: 28px;
+        transform: rotate(180deg);
+        animation: mySlider2 0.3s linear;
+        animation-fill-mode:forwards;
+    }
+    .title-slide .slideRote{
+        margin-top: 28px;
+        animation: mySlider1 0.3s linear;
+        animation-fill-mode:forwards;
+    }
+
+
+    @keyframes mySlider1
+    {
+        from {transform: rotate(180deg);}
+        to {transform: rotate(0deg);}
+    }
+    @keyframes mySlider2
+    {
+        from {transform: rotate(0deg);}
+        to {transform: rotate(180deg);}
+    }
+
+    @keyframes mySlider3
+    {
+        from {transform: rotate(0deg);}
+        to {transform: rotate(180deg);}
+    }
+
+
+    @keyframes mySlider4
+    {
+        from {transform: rotate(180deg);}
+        to {transform: rotate(0deg);}
+    }
+
+    .title-tool{
+        display: -webkit-flex;
+        display: flex;
+        height: 104px;
+        background-color:rgba(0, 0, 0, 0.1);
+        flex-direction: row;
+    }
+
+    .item1-tool{
+        width: 33.333%;
+        height: 100%;
+        box-sizing: border-box;
+        border: 1px solid blue;
+    }
+
+
+    .tool-box{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        display: -webkit-flex;
+        flex-direction: column;
+        text-align: center;
+    }
+    .top-line{
+        height: 20%;
+        box-sizing: border-box;
+    }
+    .top-line2{
+        height: 10%;
+        box-sizing: border-box;
+    }
+    .title-icon{
+        height: 35%;
+        box-sizing: border-box;
+
+    }
+    .title-icon img{
+        height: 100%;
+
+    }
+   .title-text{
+       height: 35%;
+       box-sizing: border-box;
+       font-family: 微软雅黑;
+       font-weight: bold;
+       color: rgba(42, 207, 205, 1);
+       font-size: 18px;
+   }
+    .title-text2{
+        height: 35%;
+        box-sizing: border-box;
+        font-family: 微软雅黑;
+        font-weight: bold;
+        color:rgba(153, 153, 153, 1);
+        font-size: 18px;
+    }
+    .tool-box:hover{
+        cursor: pointer;
+    }
+
+    /*添加定位点信息表单*/
+    .left-form{
+        height: 976px;
+        border: 1px solid red;
+    }
+
+    .title-add{
+        margin-top: 30px;
+        display: -webkit-flex;
+    }
+
+
+    .add-text{
+        font-size: 22px;
+        color:rgba(0, 0, 0, 1);
+        font-family: 微软雅黑;
+        text-align: left;
+        font-weight: bold;
+        box-sizing: border-box;
+        width: 46.5%;
+    }
+
+
+    .add-icon{
+        text-align: right;
+        box-sizing: border-box;
+        width: 46.5%;
+    }
+
+    .add-line{
+        width:7%;
+    }
+  .up-icon{
+      /*height: 50%;*/
+      /*border: 1px solid blue;*/
+      margin-top: 10px;
+      transform: rotate(180deg);
+      animation: mySlider3 0.3s linear;
+      animation-fill-mode:forwards;
+  }
+
+.add-icon .slideRote2{
+    animation: mySlider1 0.3s linear;
+    animation-fill-mode:forwards;
+}
+
+    .add-icon .slideRote3{
+        animation: mySlider1 0.3s linear;
+        animation-fill-mode:forwards;
+    }
+    .title-add2{
+        display: -webkit-flex;
+        margin-top: 10px;
+    }
+
+    .add-text2{
+
+        border: 1px solid #F2F2F2;
+        box-sizing: border-box;
+        width: 46.5%;
+    }
+    .add-icon2{
+        box-sizing: border-box;
+        width: 46.5%;
+        border: 1px solid #F2F2F2;
+    }
+   .add-line2{
+        width:7%;
+    }
+   /*表单样式*/
+    .title-add3{
+        display: -webkit-flex;
+        margin-top: 10px;
+    }
+
+    .add-text3{
+        color:#3A3A3A;
+        font-family: 微软雅黑;
+        text-align: left;
+        font-size: 20px;
+        font-weight: bold;
+        box-sizing: border-box;
+        width: 23%;
+        /*border: 1px solid red;*/
+    }
+    .add-icon3{
+        box-sizing: border-box;
+        width: 70%;
+        /*border: 1px solid red;*/
+
+    }
+    .add-line3{
+        width:7%;
+
+    }
+
+    input[type=text]{
+        width: 100%;
+        height: 100%;
+        border: 1px solid rgba(97, 97, 97, 1);
+        border-radius: 3px;
+        outline: none;
+    }
+  .icon-list{
+      width: 100%;
+      height: 120px;
+      border: 1px solid rgba(97, 97, 97, 1);
+  }
+    .icon-text{
+        width: 35px;
+        height: 35px;
+        border: 1px solid red;
+        display: inline-block;
+        box-sizing: border-box;
+
+    }
+  .icon-list div{
+      font-size: 30px;
+      color: red;
+  }
+    /*图标的颜色*/
+    .add-icon4{
+        display: -webkit-flex;
+        width: 70%;
+        -webkit-justify-content:space-between;
+    }
+    .add-icon4 >.sel-color{
+        width: 18px;
+        height: 18px;
+        margin-top: 5px;
+        border-radius: 50%;
+        display: inline-block;
+        box-shadow:0px 2px 5px 1px rgba(0,0,0,0.17);
+    }
+
+    .add-icon4 >.sel-color .sel-color2{
+     height:18px;
+     width:18px;
+     box-sizing: border-box;
+     border-radius: 50%;
+ }
+  .btn{
+      display: -webkit-flex;
+      width: 100%;
+      height: 36px;
+      margin-top: 30px;
+      justify-content: space-around;
+
+  }
+  .add-btn{
+      width:28%;
+      height: 100%;
+      box-sizing: border-box;
+      /*border: 1px solid red;*/
+  }
+  .btn-tj,.btn-add{
+      width: 97px;
+      display: inline-block;
+      background:rgba(255,255,255,1) ;
+      color:rgba(42, 207, 205, 1);
+      height: 36px;
+      font-size: 20px;
+      line-height: 26px;
+      font-weight: bold;
+      font-family: 微软雅黑;
+      border-radius: 10px;
+      outline: none;
+      border:2px solid rgba(42,207,205,1) ;
+  }
+ .btn-sc,.btn-bc{
+     width: 97px;
+     display: inline-block;
+     background:rgba(255,255,255,1) ;
+     color:rgba(153,153,153,1);
+     height: 36px;
+     font-size: 20px;
+     line-height: 26px;
+     font-weight: bold;
+     font-family: 微软雅黑;
+     border-radius: 10px;
+     outline: none;
+     border:2px solid rgba(153,153,153,1) ;
+ }
+
+.btn-info{
+    height: 36px;
+    margin-top: 30px;
+    text-align: center;
+    width: 100%;
+
+}
+.title-slide,.btn-add,.btn-tj,.btn-sc,.btn-bc,.up-icon:hover{
+        cursor: pointer;
+    }
+
+</style>
+
+</head>
+<body>
+   <div class="content" id="webTool" v-cloak>
+       <div class="tool-content">
+           <div class="left-list " v-show="slideBar" >
+                   <div class="title-tool" >
+                           <div class="item1-tool">
+                                <div class="tool-box">
+                                    <div class="top-line">  </div>
+                                    <div class="title-icon">
+                                        <img src="../assets/webImg/poi.png" >
+                                    </div>
+                                    <div class="top-line2">  </div>
+                                    <div class="title-text"> POI工具</div>
+                                </div>
+                           </div>
+                           <div class="item1-tool">
+                               <div class="tool-box">
+                                   <div class="top-line">  </div>
+                                   <div class="title-icon">
+                                       <img src="../assets/webImg/cehui.png" >
+                                   </div>
+                                   <div class="top-line2">  </div>
+                                   <div class="title-text2"> 测绘工具</div>
+                               </div>
+
+                           </div>
+                           <div class="item1-tool">
+                               <div class="tool-box">
+                                   <div class="top-line">  </div>
+                                   <div class="title-icon">
+                                       <img src="../assets/webImg/yuAn.png" >
+                                   </div>
+                                   <div class="top-line2">  </div>
+                                   <div class="title-text2"> 预案工具</div>
+                               </div>
+
+                           </div>
+
+                   </div>
+                   <!--添加定位点-->
+                   <div class="left-form">
+                         <div class="title-add">
+                              <div class="add-line"> </div>
+                              <div class="add-text"> 添加定位点</div>
+                              <div class="add-icon" style="border: 1px solid red;">
+                                  <img src="../assets/webImg/up.png"  class="up-icon" :class="{slideRote2:showSlide2}" @click.stop="show2">
+                              </div>
+                             <div class="add-line">   </div>
+
+                         </div>
+                     <!--line样式-->
+                       <div class="title-add2">
+                               <div class="add-line2"> </div>
+                               <div class="add-text2"> </div>
+                               <div class="add-icon2"></div>
+                               <div class="add-line2">   </div>
+                       </div>
+                      <!--输入框lng，lat-->
+                       <div v-show="tilName">
+                               <div class="title-add3">
+                                       <div class="add-line3"> </div>
+                                       <div class="add-text3"> 图标名称</div>
+                                       <div class="add-icon3">
+                                           <input type="text" name="icon" autocomplete="off">
+                                       </div>
+                                       <div class="add-line3">   </div>
+
+                               </div>
+
+                               <div class="title-add3">
+                                   <div class="add-line3"> </div>
+                                   <div class="add-text3"> <span> 经</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>度</span></div>
+                                   <div class="add-icon3">
+                                       <input type="text" name="lng" autocomplete="off">
+                                   </div>
+                                   <div class="add-line3">   </div>
+
+                               </div>
+
+                               <div class="title-add3">
+                                   <div class="add-line3"> </div>
+                                   <div class="add-text3"> <span> 纬</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>度</span></div>
+                                   <div class="add-icon3">
+                                       <input type="text" name="lat" autocomplete="off">
+                                   </div>
+                                   <div class="add-line3">   </div>
+
+                       </div>
+
+                       <div class="title-add3">
+                           <div class="add-line3"> </div>
+                           <div class="add-text3"> 图标样式</div>
+                           <div class="add-icon3">
+                               <div class="icon-list">
+                                    <div class="icon-text" >
+                                        <div class="el-icon-sm-huojing" ></div>
+                                    </div>
+                                   <div class="icon-text">
+                                       <div class="el-icon-sm-xiaofangzhan" ></div>
+                                   </div>
+                                   <div class="icon-text">
+                                       <div class="el-icon-sm-changyongtubiao-xianxingdaochu-zhuanqu-" ></div>
+                                   </div>
+                               </div>
+                           </div>
+                           <div class="add-line3">   </div>
+
+                       </div>
+                       <div class="title-add3">
+                           <div class="add-line3"> </div>
+                           <div class="add-text3"> 图标颜色</div>
+                           <div class="add-icon4" >
+                               <div  class="sel-color"  v-for="(item,index) in circleJson" :key="index"  :style="{border:item.border}"  >
+                                      <div class="sel-color2" :style="{backgroundColor:item.backgroundColor}"> </div>
+                               </div>
+                           </div>
+                           <div class="add-line3">   </div>
+
+                       </div>
+                       <!--按钮样式-->
+                       <div class="btn">
+                             <div class="add-btn">
+
+                              <button class="btn-tj"> 提交 </button>
+                             </div>
+                             <div class="add-btn">
+                                 <button class="btn-sc"> 删除</button>
+                             </div>
+                       </div>
+
+                       </div>
+                       <!--定位点信息-->
+                       <div class="title-add">
+                           <div class="add-line"> </div>
+                           <div class="add-text"> 定位点信息</div>
+                           <div class="add-icon">
+                               <img src="../assets/webImg/up.png" class="up-icon" @click="show3"  :class="{slideRote3:showSlide3}">
+                           </div>
+                           <div class="add-line">   </div>
+
+                       </div>
+                       <!--line样式-->
+                       <div class="title-add2">
+                               <div class="add-line2"> </div>
+                               <div class="add-text2"> </div>
+                               <div class="add-icon2"></div>
+                               <div class="add-line2">   </div>
+                       </div>
+                      <!--定位点信息添加按钮-->
+                       <div v-show="tilName2">
+                               <div class="tle-info" v-show="isPosition">
+                               <div class="title-add3">
+                                   <div class="add-line3"> </div>
+                                   <div class="add-text3"> <span> 标</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>题</span></div>
+                                   <div class="add-icon3">
+                                       <input type="text" name="lat" autocomplete="off">
+                                   </div>
+                                   <div class="add-line3">   </div>
+
+                               </div>
+                               <div class="title-add3">
+                                   <div class="add-line3"> </div>
+                                   <div class="add-text3"> <span> 内</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>容</span></div>
+                                   <div class="add-icon3">
+                                       <input type="text" name="lat" autocomplete="off">
+                                   </div>
+                                   <div class="add-line3">   </div>
+
+                               </div>
+                               </div>
+                               <div class="btn">
+                                   <div class="add-btn">
+                                       <button class="btn-add" @click.stop="addCon()">添加 </button>
+                                   </div>
+                                   <div class="add-btn">
+                                       <button class="btn-bc"  @click.stop="saveCon()"> 保存</button>
+                                   </div>
+                               </div>
+                       </div>
+
+                   </div>
+
+            </div>
+
+           <div class="touch-point">
+               <div class="title-slide" @click.stop="showPanel">
+                   <img src="../assets/webImg/tle-slide.png"  class="slide-icon" :class="{slideRote:showSlide}" >
+               </div>
+
+           </div>
+       </div>
+
+   </div>
+
+</body>
+
+<script type="text/javascript">
+let vm=new Vue({
+    el:'#webTool',
+    data:{
+        activeColor:'red',
+        slideBar:true,
+        isPosition:false,
+        tilName:true,
+        tilName2:true,
+        showSlide:false,
+        showSlide2:false,
+        showSlide3:false,
+        circleJson: [
+                {
+                border:'2px solid #00FFFF',
+                backgroundColor:'rgba(0, 0, 0, 0.8)'
+                },
+                {
+                    border:'2px solid rgba(240,240,240,1)',
+                    backgroundColor:'rgba(255,255,255,1)'
+                },
+                {
+                    border:'2px solid rgba(240,240,240,1)',
+                    backgroundColor:'rgba(102,255,255,1)'
+                },
+                {
+                    border:'2px solid rgba(240,240,240,1)',
+                    backgroundColor:'rgba(252,15,15,1)'
+                },
+                {
+                    border:'2px solid rgba(240,240,240,1)',
+                    backgroundColor:'rgba(239,171,11,1)'
+                 },
+                {
+                    border:'2px solid rgba(240,240,240,1)',
+                    backgroundColor:'rgba(255,215,8,1)'
+                },
+                {
+                    border:'2px solid rgba(240,240,240,1)',
+                    backgroundColor:'rgba(8,167,255,1)'
+                },
+                {
+                    border:'2px solid rgba(240,240,240,1)',
+                    backgroundColor:'rgba(8,255,159,1)'
+                },
+            ]
+
+    },
+    methods:{
+        showPanel(){
+            this.slideBar = !this.slideBar;
+            this.showSlide = !this.showSlide;
+        },
+        addCon(){
+            console.log(123);
+            this.isPosition=true;
+        },
+        saveCon(){
+            this.isPosition=false;
+            console.log(1234569);
+        },
+        show2(){
+            this.tilName = !this.tilName;
+            this.showSlide2 = !this.showSlide2;
+        },
+        show3(){
+            this.tilName2 = !this.tilName2;
+            this.showSlide3 = !this.showSlide3;
+        }
+    }
+
+
+
+
+
+})
+
+
+
+</script>
+
+
+
+
+</html>

@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>房屋总量统计</title>
+
+</head>
+<style type="text/css">
+
+    *{
+        margin: 0px;
+        padding: 0px;
+    }
+    body.supervise{
+        background-color:black;
+        /*background-color:rgba(255,255,255,0);*/
+
+    }
+
+    /*width=380*/
+    .flex-container{
+        height: 300px;
+        width: 380px;
+        border: 1px solid red;
+        box-sizing: border-box;
+        flex-direction: column;
+        /*margin: 30px auto;*/
+    }
+
+    .item1-flex{
+        height: 300px;
+        width: 380px;
+        border: 1px solid blue;
+        box-sizing: border-box;
+    }
+
+    ::-webkit-scrollbar {
+        display: none;
+    }
+
+    [v-cloak]{
+        display: none;
+    }
+
+
+
+
+
+</style>
+
+
+
+<body class="supervise"  >
+
+
+
+<div  class="container-fluid" id="supervise-home" v-cloak>
+    <div class="supervise-charts">
+        <div class="flex-container">
+            <div class="item1-flex"  id="home-safe">  </div>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+
+</body>
+<script type="text/javascript" src="../js/new-vue.js"> </script>
+<script src="../js/echarts.js"></script>
+<script type="text/javascript">
+    var vm=new Vue({
+        el:'#supervise-home',
+        data:{
+
+
+        },
+        methods:{
+            getSafe(){
+                var myChart1 = echarts.init(document.getElementById('home-safe'));
+
+                var scaleData = [
+                    {
+                        name: '暂无安全隐患',
+                        value: 436,
+                        label:{
+                            show:true,
+                            position: 'inner',
+                            formatter: '{d}%',
+                        },
+                        itemStyle:{
+                            normal: {
+                                color: new echarts.graphic.LinearGradient(1, 0, 0, 0, [{
+                                    offset:0.2,
+                                    color: '#2ACFCD'
+                                }, {
+                                    offset: 1,
+
+                                    color: '#03A8A6'
+                                }]),
+                            }
+                        }
+                    },
+                    {
+                        name: '重大安全隐患',
+                        value:53,
+                        itemStyle:{
+                            normal: {
+                                color: new echarts.graphic.LinearGradient(1, 0, 0, 1, [{
+                                    offset:0.3,
+                                    color: '#E62525'
+
+                                }, {
+                                    offset: 1,
+                                    color: '#861515'
+                                }]),
+                            }
+                        }
+                    },
+                    {
+                        name: '一般安全隐患',
+                        value: 57,
+                        itemStyle:{
+                            normal: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                    offset:0.2,
+                                    color: '#FEBF63'
+                                }, {
+                                    offset: 1,
+                                    color: '#D59E4E'
+                                }]),
+                            }
+                        }
+                    },
+                   ];
+                let sum=0;
+                scaleData.forEach((item,index)=>{
+                    sum +=item.value;
+                })
+
+                let legendData =[];
+                for (var j = 0; j < scaleData.length; j++) {
+                    var data = {
+                        name: scaleData[j].name,
+                        icon: 'circle',
+                        textStyle: {
+                            fontSize: 16,
+                        }
+                    }
+                    legendData.push(data)
+                }
+                //隐藏值
+                var placeHolderStyle = {
+                    normal: {
+                        label: {
+                            show: false
+                        },
+                        labelLine: {
+                            show: false
+                        },
+                        color: 'rgba(0, 0, 0, 0)',
+                        borderColor: 'rgba(0, 0, 0, 0)',
+                        borderWidth: 0
+                    }
+                };
+                var data = [];
+                for (var i = 0; i < scaleData.length; i++) {
+                    data.push({
+                            value: scaleData[i].value,
+                            name: scaleData[i].name,
+                            label:scaleData[i].label,
+                            itemStyle:scaleData[i].itemStyle
+                        },
+                        {
+                            value: 10,
+                            name: '',
+                            label:{
+                                show:false,
+                            },
+                            itemStyle: placeHolderStyle
+                        });
+                }
+                var option = {
+                    color: ['#bf19ff', '#854cff', '#5f45ff'],
+                    title: [
+                        {
+                        text: '{name|\t\t7789}\n{val|\t房屋总数}',
+                        top: '45%',
+                        left: '20%',
+                        textStyle: {
+                            rich: {
+                                name: {
+                                    fontSize: 17,
+                                    fontWeight: 'bold',
+                                    fontFamily:'Microsoft YaHei',
+                                    color: '#fff',
+                                    padding: [5, 0]
+                                },
+                                val: {
+                                    fontSize: 14,
+                                   // fontWeight: 'bold',
+                                    color: '#fff',
+                                    fontFamily:'Microsoft YaHei',
+                                }
+                            }
+                        }
+                    },
+                        {
+                            text: '{name|房屋}\n{val|分类}',
+                            top: '56%',
+                            left: '72%',
+                            textStyle: {
+                                rich: {
+                                    name: {
+                                        fontSize: 14,
+                                        fontWeight: 'bold',
+                                        fontFamily:'Microsoft YaHei',
+                                        color: '#fff',
+                                        padding: [5, 0]
+                                    },
+                                    val: {
+                                        fontSize: 14,
+                                      fontWeight: 'bold',
+                                        color: '#fff',
+                                        fontFamily:'Microsoft YaHei',
+                                    }
+                                }
+                            }
+                        }
+
+                    ],
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: '{b}<br/> {c}栋 ({d}%)'
+                    },
+                    legend: [
+                        {
+                        orient:'horizontal',
+                        left:'5%',
+                        //itemGap:1,
+                         itemHeight:10,
+                         itemWidth:22,
+                        textStyle: {
+                            color: '#ffffff',
+                            fontSize: 14,
+                            fontFamily:'Microsoft YaHei',
+                            fontWeight:'bold'
+                        },
+                        icon: 'roundRect',
+                        data: ['暂无安全隐患','重大安全隐患','一般安全隐患'],
+                    },
+                        {
+                            orient:'horizontal',
+                            top:'26%',
+                            left:'65%',
+                            itemHeight:10,
+                            itemWidth:22,
+                            textStyle: {
+                                color: '#ffffff',
+                                fontSize: 14,
+                                fontFamily:'Microsoft YaHei',
+                                fontWeight:'bold'
+                            },
+                            icon: 'roundRect',
+                            data: ['城市房屋',],
+                        },
+                        {
+                            orient:'horizontal',
+                            top:'32%',
+                            left:'65%',
+                            itemHeight:10,
+                            itemWidth:22,
+                            textStyle: {
+                                color: '#ffffff',
+                                fontSize: 14,
+                                fontFamily:'Microsoft YaHei',
+                                fontWeight:'bold'
+                            },
+                            icon: 'roundRect',
+                            data: ['农村房屋',],
+                        },
+                    ],
+                    series: [
+                        // 主要展示层的
+                        {
+                            radius: ['30%', '45%'],
+                            center: ['30%', '55%'],
+                            type: 'pie',
+                            startAngle:-20,
+                            label: {
+                                show:true,
+                                fontSize: 12,
+                                fontFamily:'Microsoft YaHei',
+                                fontWeight:'bold',
+                                position: 'inner',
+                                formatter: '{d}%',
+                            },
+                            data: data,
+
+                        },
+                        // 边框的设置
+                        {
+                            name: '外边框',
+                            type: 'pie',
+                            clockWise: false, //顺时加载
+                            hoverAnimation: false, //鼠标移入变大
+                            center: ['30%', '55%'],
+                            radius: ['58%', '58%'],
+                            label: {
+                                normal: {
+                                    show: false
+                                }
+                            },
+                            data: [
+                                {
+                                value: 100,
+                                name: '',
+                                itemStyle: {
+                                    normal: {
+                                        borderWidth: 1,
+                                        borderColor: '#66FFFF'
+                                    }
+                                }
+                            }
+                            ]
+                        },
+                        //小圆
+                        {
+                            name: '',
+                            type: 'pie',
+                            clockWise: false, //顺时加载
+                            hoverAnimation: false, //鼠标移入变大
+                            center: ['77%', '65%'],
+                            radius: ['42%', '43%'],
+                            startAngle:-10,
+                            label: {
+                                normal: {
+                                    show: false
+                                }
+                            },
+                            data: [
+
+
+                                {
+                                    value: 30,
+                                    name: '',
+                                    itemStyle: {
+                                        normal: {
+                                            borderWidth: 8,
+                                            borderColor: '#848484',
+                                            color:'#848484'
+                                        }
+                                    }
+                                },
+                                {
+                                    value: 100,
+                                    name: '城市房屋',
+                                    itemStyle: {
+                                        normal: {
+                                           borderWidth: 8,
+                                            borderColor: '#03A8A6',
+                                            color: new echarts.graphic.LinearGradient(1, 0, 0, 0, [{
+                                                offset:0.2,
+                                                color: '#2ACFCD'
+                                            }, {
+                                                offset: 1,
+
+                                                color: '#03A8A6'
+                                            }]),
+
+                                        }
+                                    }
+                                },
+
+                            ]
+                        },
+                        {
+                            name: '',
+                            type: 'pie',
+                            clockWise: false, //顺时加载
+                            hoverAnimation: false, //鼠标移入变大
+                            center: ['77%', '65%'],
+                            radius: ['26%', '27%'],
+
+                            label: {
+                                normal: {
+                                    show: false
+                                }
+                            },
+                            data: [
+
+                                {
+                                    value: 100,
+                                    name: '城市房屋',
+                                    itemStyle: {
+                                        normal: {
+                                            borderWidth: 8,
+                                            borderColor: '#848484',
+                                            color:'#848484'
+
+                                        }
+                                    }
+                                },
+                                {
+                                    value: 30,
+                                    name: '农村房屋',
+                                    itemStyle: {
+                                        normal: {
+                                            borderWidth: 8,
+                                            borderColor: '#D59E4E',
+                                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                                offset:0.2,
+                                                color: '#FEBF63'
+                                            }, {
+                                                offset: 1,
+                                                color: '#D59E4E'
+                                            }]),
+                                        }
+                                    }
+                                },
+
+
+                            ]
+                        },
+
+                    ]
+                };
+
+                myChart1.setOption(option);
+            },
+
+        },
+
+        mounted:function () {
+            this.getSafe()
+        }
+
+
+
+
+    })
+
+
+
+
+
+</script>
+
+
+
+</html>

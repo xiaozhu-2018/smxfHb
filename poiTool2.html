@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>poi工具</title>
+    <link rel="stylesheet" href="../assets/icon/icon.css">
+    <link rel="stylesheet" href="../assets/icon/iconfont.css">
+    <script type="text/javascript" src="../js/new-vue.js"> </script>
+
+<style type="text/css">
+    *{
+        margin: 0px;
+        padding: 0px;
+    }
+    [v-cloak]{
+        display: none;
+    }
+
+    .tool-content{
+        display: -webkit-flex;
+        width: 545px;
+        /*background-color:#FAFAFA ;*/
+        /*border: 1px solid green;*/
+        position: absolute;
+        z-index: 100;
+
+
+    }
+
+    .left-list{
+        width:95%;
+        /*border: 1px solid red;*/
+    }
+
+
+
+    /*控制显示按钮*/
+    .touch-point{
+        min-width: 90px;
+        height: 381px;
+        margin-top:260px;
+        background-color:#FAFAFA ;
+    }
+
+
+    .title-slide{
+        min-width: 26px;
+        height: 70px;
+        margin-top:17px;
+        box-sizing: border-box;
+        background: rgba(255,255,255,1);
+        box-shadow:3px 2px 5px 0px rgba(42,42,42,0.5);
+        border: 1px solid blue;
+        text-align: center;
+    }
+
+    .title-slide .slide-icon{
+        margin-top: 28px;
+        transform: rotate(180deg);
+        animation: mySlider2 0.3s linear;
+        animation-fill-mode:forwards;
+    }
+    .title-slide .slideRote{
+        margin-top: 28px;
+        animation: mySlider1 0.3s linear;
+        animation-fill-mode:forwards;
+    }
+
+
+    @keyframes mySlider1
+    {
+        from {transform: rotate(180deg);}
+        to {transform: rotate(0deg);}
+    }
+    @keyframes mySlider2
+    {
+        from {transform: rotate(0deg);}
+        to {transform: rotate(180deg);}
+    }
+
+    @keyframes mySlider3
+    {
+        from {transform: rotate(0deg);}
+        to {transform: rotate(180deg);}
+    }
+
+
+    @keyframes mySlider4
+    {
+        from {transform: rotate(180deg);}
+        to {transform: rotate(0deg);}
+    }
+
+
+
+    .title-tool{
+        display: -webkit-flex;
+        display: flex;
+        height: 100%;
+        flex-direction: column;
+    }
+
+    .item1-tool{
+        height: 33.333%;
+        width: 100%;
+        background-color:rgba(0, 0, 0, 0.1);
+        box-sizing: border-box;
+        /*border: 1px solid rgba(0, 0, 0, 0.1);*/
+    }
+
+
+    .tool-box{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        display: -webkit-flex;
+        flex-direction: column;
+        text-align: center;
+    }
+    .top-line{
+        height: 20%;
+        box-sizing: border-box;
+        /*border: 1px solid red;*/
+    }
+    .top-line2{
+        /*height: 10%;*/
+        box-sizing: border-box;
+        /*border: 1px solid red;*/
+    }
+    .title-icon{
+        height: 30%;
+        box-sizing: border-box;
+        /*border: 1px solid red;*/
+
+    }
+    .title-icon img{
+        /*height: 45%;*/
+
+    }
+
+   .title-text{
+       height: 35%;
+       box-sizing: border-box;
+       font-family: 微软雅黑;
+       font-weight: bold;
+       color: rgba(42, 207, 205, 1);
+       font-size: 18px;
+   }
+
+    .title-text2{
+        height: 35%;
+        box-sizing: border-box;
+        font-family: 微软雅黑;
+        font-weight: bold;
+        color:rgba(153, 153, 153, 1);
+        font-size: 18px;
+    }
+    .tool-box:hover{
+        cursor: pointer;
+    }
+
+    /*添加定位点信息表单*/
+    .left-form{
+        height: 976px;
+        /*border: 1px solid red;*/
+    }
+
+    .title-add{
+        /*margin-top: 30px;*/
+        display: -webkit-flex;
+    }
+
+
+    .add-text{
+        font-size: 22px;
+        color:rgba(0, 0, 0, 1);
+        font-family: 微软雅黑;
+        text-align: left;
+        font-weight: bold;
+        box-sizing: border-box;
+        width: 46.5%;
+    }
+
+
+    .add-icon{
+        text-align: right;
+        box-sizing: border-box;
+        width: 46.5%;
+    }
+
+    .add-line{
+        width:7%;
+    }
+  .up-icon{
+      /*height: 50%;*/
+      /*border: 1px solid blue;*/
+      margin-top: 10px;
+      transform: rotate(180deg);
+      animation: mySlider3 0.3s linear;
+      animation-fill-mode:forwards;
+  }
+
+.add-icon .slideRote2{
+    animation: mySlider1 0.3s linear;
+    animation-fill-mode:forwards;
+}
+
+    .add-icon .slideRote3{
+        animation: mySlider1 0.3s linear;
+        animation-fill-mode:forwards;
+    }
+    .title-add2{
+        display: -webkit-flex;
+        margin-top: 10px;
+    }
+
+    .add-text2{
+
+        border: 1px solid #F2F2F2;
+        box-sizing: border-box;
+        width: 46.5%;
+    }
+    .add-icon2{
+        box-sizing: border-box;
+        width: 46.5%;
+        border: 1px solid #F2F2F2;
+    }
+   .add-line2{
+        width:7%;
+    }
+   /*表单样式*/
+    .title-add3{
+        display: -webkit-flex;
+        margin-top: 10px;
+    }
+
+    .add-text3{
+        color:#3A3A3A;
+        font-family: 微软雅黑;
+        text-align: left;
+        font-size: 20px;
+        font-weight: bold;
+        box-sizing: border-box;
+        width: 23%;
+        /*border: 1px solid red;*/
+    }
+    .add-icon3{
+        box-sizing: border-box;
+        width: 70%;
+        /*border: 1px solid red;*/
+
+    }
+    .add-line3{
+        width:7%;
+
+    }
+
+    input[type=text]{
+        width: 100%;
+        height: 100%;
+        border: 1px solid rgba(97, 97, 97, 1);
+        border-radius: 3px;
+        outline: none;
+    }
+  .icon-list{
+      width: 100%;
+      height: 120px;
+      overflow: auto;
+      text-align: center;
+      border: 1px solid rgba(97, 97, 97, 1);
+  }
+    ::-webkit-scrollbar {
+        display: none;
+    }
+    .icon-text{
+        width: 35px;
+        height: 35px;
+        /*border: 1px solid red;*/
+        display: inline-block;
+        box-sizing: border-box;
+        margin: 6px;
+
+    }
+  .icon-list div{
+      font-size: 30px;
+      position: relative;
+      /*color:#151515 ;*/
+  }
+    /*图标的颜色*/
+    .add-icon4{
+        display: -webkit-flex;
+        width: 70%;
+        -webkit-justify-content:space-between;
+    }
+    .add-icon4 >.sel-color{
+        width: 18px;
+        height: 18px;
+        margin-top: 5px;
+        border-radius: 50%;
+        display: inline-block;
+        box-shadow:0px 2px 5px 1px rgba(0,0,0,0.17);
+    }
+
+    .add-icon4 >.sel-color .sel-color2{
+     height:18px;
+     width:18px;
+     box-sizing: border-box;
+     border-radius: 50%;
+ }
+  .btn{
+      display: -webkit-flex;
+      width: 100%;
+      height: 36px;
+      margin-top: 30px;
+      justify-content: space-around;
+
+  }
+  .add-btn{
+      width:28%;
+      height: 100%;
+      box-sizing: border-box;
+      /*border: 1px solid red;*/
+  }
+  .btn-tj,.btn-add{
+      width: 97px;
+      display: inline-block;
+      background:rgba(255,255,255,1) ;
+      color:rgba(42, 207, 205, 1);
+      height: 36px;
+      font-size: 20px;
+      line-height: 26px;
+      font-weight: bold;
+      font-family: 微软雅黑;
+      border-radius: 10px;
+      outline: none;
+      border:2px solid rgba(42,207,205,1) ;
+  }
+ .btn-sc,.btn-bc{
+     width: 97px;
+     display: inline-block;
+     background:rgba(255,255,255,1) ;
+     color:rgba(153,153,153,1);
+     height: 36px;
+     font-size: 20px;
+     line-height: 26px;
+     font-weight: bold;
+     font-family: 微软雅黑;
+     border-radius: 10px;
+     outline: none;
+     border:2px solid rgba(153,153,153,1) ;
+ }
+
+.btn-info{
+    height: 36px;
+    margin-top: 30px;
+    text-align: center;
+    width: 100%;
+
+}
+.title-slide,.btn-add,.btn-tj,.btn-sc,.btn-bc,.up-icon, .icon-list:hover{
+        cursor: pointer;
+    }
+
+    /*map 矢量地图切换*/
+    .mapIcon{
+        width: 107px;
+        height: 109px;
+        z-index: 10;
+        /*border: 1px solid red;*/
+        right:0px;
+        bottom: 0px;
+        position: absolute;
+    }
+
+</style>
+
+    <!--<script src="http://172.22.54.10:8007/Build/UnityLoader.js"></script>-->
+
+</head>
+<body>
+   <div class="content">
+       <div class="crop" id="webTool" v-cloak>
+           <div class="tool-content" >
+               <div class="left-list " v-show="slideBar" >
+                   <!--添加定位点-->
+                       <div class="left-form" :style="{backgroundColor:leftColors}">
+                             <div class="title-add"  >
+                                  <div class="add-line"> </div>
+                                  <div class="add-text"> 添加定位点</div>
+                                  <div class="add-icon" >
+                                      <img src="../assets/webImg/up.png"  class="up-icon" :class="{slideRote2:showSlide2}" style="display: none;">
+                                  </div>
+                                 <div class="add-line">   </div>
+
+                             </div>
+                         <!--line样式-->
+                           <div class="title-add2">
+                                   <div class="add-line2"> </div>
+                                   <div class="add-text2"> </div>
+                                   <div class="add-icon2"></div>
+                                   <div class="add-line2">   </div>
+                           </div>
+                          <!--输入框lng，lat-->
+                           <div v-show="tilName">
+                                   <div class="title-add3">
+                                           <div class="add-line3"> </div>
+                                           <div class="add-text3"> 图标名称</div>
+                                           <div class="add-icon3">
+                                               <input type="text" v-model="dataJson.iconName" >
+                                           </div>
+                                           <div class="add-line3">   </div>
+
+                                   </div>
+
+                                   <div class="title-add3">
+                                       <div class="add-line3"> </div>
+                                       <div class="add-text3"> <span> 经</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>度</span></div>
+                                       <div class="add-icon3">
+                                           <input type="text" name="lng" v-model="dataJson.lng" autocomplete="off">
+                                       </div>
+                                       <div class="add-line3">   </div>
+
+                                   </div>
+
+                                   <div class="title-add3">
+                                       <div class="add-line3"> </div>
+                                       <div class="add-text3"> <span> 纬</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>度</span></div>
+                                       <div class="add-icon3">
+                                           <input type="text" name="lat" v-model="dataJson.lat" autocomplete="off">
+                                       </div>
+                                       <div class="add-line3">   </div>
+
+                           </div>
+
+                           <div class="title-add3">
+                               <div class="add-line3"> </div>
+                               <div class="add-text3"> 图标样式</div>
+                               <div class="add-icon3">
+                                   <div class="icon-list">
+
+                                        <!--<div class="icon-text" style="border: 1px solid red;" v-for="(item,index) in iconArr2" :key="index" @click.stop="selIcon(item)">-->
+                                       <div class="icon-text" style="border: 1px solid black;"  v-for="(item,index) in iconImgs" :key="index" @click.stop="selIcon(item)">
+                                              <img :src="item.src" :style="{backgroundColor: colorIcon}">
+                                            <!--<div  :class="item.icon"  :style="{color:colorIcon}">-->
+                                                <i class="el-icon-sm-dagou" style="font-size:16px;font-weight: bold;color:#00FF00; position: absolute;left: 5px;top:18px;"  v-show="item.sign" ></i>
+                                            <!--</div>-->
+
+                                        </div>
+
+                                   </div>
+                               </div>
+                               <div class="add-line3">   </div>
+
+                           </div>
+                           <div class="title-add3">
+                               <div class="add-line3"> </div>
+                               <div class="add-text3"> 图标颜色</div>
+                               <div class="add-icon4" >
+                                   <div  class="sel-color"  v-for="(item,index) in circleJson" :key="index"  :style="{border:item.border}"  >
+                                          <div class="sel-color2" :style="{backgroundColor:item.backgroundColor}" @click.stop="showColor(item)" > </div>
+                                   </div>
+                               </div>
+                               <div class="add-line3">   </div>
+
+                           </div>
+                           <!--按钮样式-->
+                           <div class="btn">
+                                 <div class="add-btn">
+                                     <button class="btn-tj" @click.stop="addPoint"> 提交 </button>
+                                 </div>
+                                 <div class="add-btn">
+                                     <button class="btn-sc"> 删除</button>
+                                 </div>
+                           </div>
+
+                           </div>
+                           <!--定位点信息-->
+
+
+                           <div class="title-add" style="margin-top: 30px;">
+                               <div class="add-line"> </div>
+                               <div class="add-text"> 定位点信息</div>
+                               <div class="add-icon">
+                                   <img src="../assets/webImg/up.png" class="up-icon" @click="show3"  :class="{slideRote3:showSlide3}" style="display: none;">
+                               </div>
+                               <div class="add-line">   </div>
+
+                           </div>
+                           <!--line样式-->
+                           <div class="title-add2">
+                                   <div class="add-line2"> </div>
+                                   <div class="add-text2"> </div>
+                                   <div class="add-icon2"></div>
+                                   <div class="add-line2">   </div>
+                           </div>
+
+                           <div style=" display: none;">
+                               <!--隐藏定位点信息-->
+                          <!--定位点信息添加按钮-->
+                           <div v-show="tilName2">
+                                   <div class="tle-info" v-show="isPosition">
+                                   <div class="title-add3">
+                                       <div class="add-line3"> </div>
+                                       <div class="add-text3"> <span> 标</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>题</span></div>
+                                       <div class="add-icon3">
+                                           <input type="text" name="lat" autocomplete="off">
+                                       </div>
+                                       <div class="add-line3">   </div>
+
+                                   </div>
+                                   <div class="title-add3">
+                                       <div class="add-line3"> </div>
+                                       <div class="add-text3"> <span> 内</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>容</span></div>
+                                       <div class="add-icon3">
+                                           <input type="text" name="lat" autocomplete="off">
+                                       </div>
+                                       <div class="add-line3">   </div>
+
+                                   </div>
+                                   </div>
+                                   <div class="btn">
+                                       <div class="add-btn">
+                                           <button class="btn-add" @click.stop="addCon()">添加 </button>
+                                       </div>
+                                       <div class="add-btn">
+                                           <button class="btn-bc"  @click.stop="saveCon()"> 保存</button>
+                                       </div>
+                                   </div>
+                           </div>
+                           </div>
+                       </div>
+
+                </div>
+               <div class="touch-point">
+
+                   <!--<div class="title-slide" @click.stop="showPanel">-->
+                       <!--<img src="../assets/webImg/tle-slide.png"  class="slide-icon" :class="{slideRote:showSlide}" >-->
+                   <!--</div>-->
+                   <div class="title-tool" >
+                       <div class="item1-tool">
+                           <div class="tool-box" @click.stop="getPoi"  >
+                               <div class="top-line">  </div>
+                               <div class="title-icon">
+                                   <img src="../assets/webImg/poi2.png" >
+                               </div>
+                               <div class="top-line2">  </div>
+                               <div class="title-text"> POI工具</div>
+                           </div>
+                       </div>
+                       <div class="item1-tool">
+                           <div class="tool-box" @click.stop="mapping">
+                               <div class="top-line">  </div>
+                               <div class="title-icon"  >
+                                   <img src="../assets/webImg/cehui2.png" >
+                               </div>
+                               <div class="top-line2">  </div>
+                               <div class="title-text2"> 测绘工具</div>
+                           </div>
+
+                       </div>
+                       <div class="item1-tool">
+                           <div class="tool-box"@click.stop="rePlan">
+                               <div class="top-line">  </div>
+                               <div class="title-icon" >
+                                   <img src="../assets/webImg/yuAn2.png" >
+                               </div>
+                               <div class="top-line2">  </div>
+                               <div class="title-text2"> 预案工具</div>
+                           </div>
+
+                       </div>
+
+                   </div>
+
+               </div>
+
+
+           </div>
+           <!--矢量地图MApicon-->
+           <div class="mapIcon" @click.stop="mapMenu">
+             <img src="../assets/webImg/mapIcon.png" style="width: 100%;height: 100%;" >
+           </div>
+       </div>
+
+       <div class="cover" style=" height:970px;width:100%;" >
+           <div id="unityContainer" style="background-color: black; width: 100%; height: 100%;"></div>
+       </div>
+
+   </div>
+
+</body>
+<script>
+   // var myInstance=UnityLoader.instantiate("unityContainer", "http://172.22.54.10:8007/Build/out.json");
+</script>
+<script type="text/javascript">
+
+    var pagedata = {
+        activeColor:'red',
+        slideBar:true,
+        leftColors:'#FAFAFA',
+        isPosition:false,
+        icons:false,
+        tilName:true,
+        tilName2:true,
+        showSlide:false,
+        showSlide2:false,
+        showSlide3:false,
+        nextIdx:1,
+        sign:true,
+        dataJson:{
+            iconName:'',
+            lng:'',
+            lat:'',
+        },
+        colorIcon:'#151515',
+        pointType:1,
+        circleJson: [
+            {
+                border:'2px solid #00FFFF',
+                backgroundColor:'rgba(0, 0, 0, 0.8)',
+                colorNum:1
+            },
+            {
+                border:'2px solid rgba(240,240,240,1)',
+                backgroundColor:'#008B8B',
+                colorNum:2
+            },
+            {
+                border:'2px solid rgba(240,240,240,1)',
+                backgroundColor:'rgba(102,255,255,1)',
+                colorNum:3
+            },
+            {
+                border:'2px solid rgba(240,240,240,1)',
+                backgroundColor:'rgba(252,15,15,1)',
+                colorNum:4
+            },
+            {
+                border:'2px solid rgba(240,240,240,1)',
+                backgroundColor:'rgba(239,171,11,1)',
+                colorNum:5
+            },
+            {
+                border:'2px solid rgba(240,240,240,1)',
+                backgroundColor:'rgba(255,215,8,1)',
+                colorNum:6
+            },
+            {
+                border:'2px solid rgba(240,240,240,1)',
+                backgroundColor:'rgba(8,167,255,1)',
+                colorNum:7
+            },
+            {
+                border:'2px solid rgba(240,240,240,1)',
+                backgroundColor:'rgba(8,255,159,1)',
+                colorNum:8
+            },
+        ],
+        iconArr:['el-icon-sm-huojing','el-icon-sm-xiaofangzhan',
+            'el-icon-sm-changyongtubiao-xianxingdaochu-zhuanqu-',
+            'el-icon-sm-hongqi','el-icon-sm-baojingxiaoxi',
+            'el-icon-sm-xiaofang','el-icon-sm-huabanfuben','el-icon-sm-app_icons--','el-icon-sm-baojing1'],
+        iconArr2:[{icon:'el-icon-sm-huojing',sign:false},{icon:'el-icon-sm-xiaofangzhan',sign:false},
+            {icon:'el-icon-sm-changyongtubiao-xianxingdaochu-zhuanqu-',sign:false},{icon: 'el-icon-sm-hongqi',sign:false},
+            {icon:'el-icon-sm-baojingxiaoxi',sign:false},{icon:'el-icon-sm-xiaofang',sign:false},
+            {icon:'el-icon-sm-huabanfuben',sign:false},{icon:'el-icon-sm-app_icons--',sign:false},{icon:'el-icon-sm-baojing1',sign:false}],
+        iconImgs:[
+            {src:'../assets/webImg/icon_1.png',imgNum:1,sign:false},{src:'../assets/webImg/icon_2.png',imgNum:2,sign:false},
+            {src:'../assets/webImg/icon_3.png',imgNum:3,sign:false},{src:'../assets/webImg/icon_4.png',imgNum:4,sign:false},
+            {src:'../assets/webImg/icon_5.png',imgNum:5,sign:false},{src:'../assets/webImg/icon_6.png',imgNum:6,sign:false},
+            {src:'../assets/webImg/icon_7.png',imgNum:7,sign:false},{src:'../assets/webImg/icon_8.png',imgNum:8,sign:false},
+            {src:'../assets/webImg/icon_9.png',imgNum:9,sign:false},{src:'../assets/webImg/icon_10.png',imgNum:10,sign:false},
+            {src:'../assets/webImg/icon_11.png',imgNum:11,sign:false},{src:'../assets/webImg/icon_12.png',imgNum:12,sign:false},
+            {src:'../assets/webImg/icon_13.png',imgNum:13,sign:false},{src:'../assets/webImg/icon_14.png',imgNum:14,sign:false},
+            {src:'../assets/webImg/icon_15.png',imgNum:15,sign:false},{src:'../assets/webImg/icon_16.png',imgNum:16,sign:false},
+            {src:'../assets/webImg/icon_17.png',imgNum:17,sign:false},{src:'../assets/webImg/icon_18.png',imgNum:18,sign:false},
+            {src:'../assets/webImg/icon_19.png',imgNum:19,sign:false},{src:'../assets/webImg/icon_20.png',imgNum:20,sign:false},
+            {src:'../assets/webImg/icon_21.png',imgNum:21,sign:false},{src:'../assets/webImg/icon_22.png',imgNum:22,sign:false},
+            {src:'../assets/webImg/icon_23.png',imgNum:23,sign:false},{src:'../assets/webImg/icon_24.png',imgNum:24,sign:false},
+            {src:'../assets/webImg/icon_25.png',imgNum:25,sign:false},{src:'../assets/webImg/icon_26.png',imgNum:26,sign:false},
+            {src:'../assets/webImg/icon_27.png',imgNum:27,sign:false},{src:'../assets/webImg/icon_28.png',imgNum:28,sign:false},
+            {src:'../assets/webImg/icon_29.png',imgNum:29,sign:false},{src:'../assets/webImg/icon_30.png',imgNum:30,sign:false},
+            {src:'../assets/webImg/icon_31.png',imgNum:31,sign:false},{src:'../assets/webImg/icon_32.png',imgNum:32,sign:false},
+            {src:'../assets/webImg/icon_33.png',imgNum:33,sign:false},{src:'../assets/webImg/icon_34.png',imgNum:34,sign:false},
+            {src:'../assets/webImg/icon_35.png',imgNum:35,sign:false},{src:'../assets/webImg/icon_36.png',imgNum:36,sign:false},
+            ]
+
+    };
+    //unity方法
+    window.unityCallback=function(cmd, args){
+        console.log("unityCallBack:" + cmd + ":" + args);
+        var nextIdx=0;
+        switch (cmd) {
+            case "ClickWGS":
+                var pos = JSON.parse(args);
+                console.log(pos.lng);
+                pagedata.dataJson.lng=pos.lng;
+                pagedata.dataJson.lat=pos.lat;
+                // console.log(11111);
+                // console.log(this.dataJson.lng=pos.lng);
+
+                //加点位的调用
+                // this.sendCmdToUnity("JsAddPOIPoint", {
+                //      id: "p" + nextIdx, //必传id并且需要唯一
+                //      name: "点位" + nextIdx,
+                //      lat: pos.lat,
+                //      lng: pos.lng,
+                //      color: '#FF0000',
+                //      pointType: 2,
+                //      extraData: "{edata:'1213131'}",
+                //  });
+                nextIdx++;
+                break;
+            case "POIClick":
+                //点位图标被点击时回调
+                var data = JSON.parse(args);
+                alert("你点击了" + data.id + "点位数据为：" + data.extraData);
+                break;
+        }
+
+    };
+
+    window.sendCmdToUnity=function(cmd,args){
+        myInstance.SendMessage("MapControl", cmd, JSON.stringify(args));
+    };
+    window.isVector=false;
+
+    let vm=new Vue({
+    el:'#webTool',
+    data:pagedata,
+    methods:{
+        showPanel(){
+            this.slideBar = !this.slideBar;
+            this.showSlide = !this.showSlide;
+        },
+        addCon(){
+            console.log(123);
+            this.isPosition=true;
+        },
+        saveCon(){
+            this.isPosition=false;
+            console.log(1234569);
+        },
+        show2(){
+            this.tilName = !this.tilName;
+            this.showSlide2 = !this.showSlide2;
+        },
+        show3(){
+            this.tilName2 = !this.tilName2;
+            this.showSlide3 = !this.showSlide3;
+        },
+        //图标选择
+        selIcon(item){
+           console.log(item);
+           this.pointType=item.imgNum;
+            this.iconImgs.forEach((item1,index)=>{
+                 if(item.src===item1.src){
+                     item1.sign=true;
+                 }else {
+                     item1.sign=false;
+                 }
+            })
+
+        },
+        //poi工具选项
+        getPoi(){
+            console.log(123456);
+            this.slideBar = !this.slideBar;
+        },
+        //颜色选择
+        showColor(item){
+            console.log(item);
+            if(item.colorNum===1){
+                this.colorIcon='#151515'
+            }else if(item.colorNum===2){
+                this.colorIcon='#008B8B'
+            }else if(item.colorNum===3){
+                this.colorIcon='rgba(102,255,255,1)'
+            }else if(item.colorNum===4){
+                this.colorIcon='rgba(252,15,15,1)'
+            }else if(item.colorNum===5){
+                this.colorIcon='rgba(239,171,11,1)'
+            }else if(item.colorNum===6){
+                this.colorIcon='rgba(255,215,8,1)'
+            }else if(item.colorNum===7){
+                this.colorIcon='rgba(8,167,255,1)'
+            }else if(item.colorNum===8){
+                this.colorIcon='rgba(8,255,159,1)'
+            }
+
+        },
+        //map点位菜单
+        mapMenu(){
+          console.log(11111);
+            window.isVector=!window.isVector;
+            window.sendCmdToUnity("SetLightOn",!window.isVector);
+        },
+        //测绘
+        mapping(){
+           console.log(6666)
+            window.sendCmdToUnity("OpenMappingTool","");
+        },
+        //预案菜单
+        rePlan(){
+           console.log(8888)
+            window.sendCmdToUnity("OpenSchemeTool","");
+        },
+        //提交点位
+        addPoint(){
+
+            console.log(this.dataJson.iconName);
+            console.log(this.dataJson.lng);
+            console.log(this.dataJson.lat);
+            console.log(this.colorIcon);
+            console.log(this.pointType);
+         // this.unityCallback('ClickWGS')
+            //this.unityCallback('ClickWGS',this.dataJson)
+            //let  nextIdx =1;
+             this.nextIdx++;
+
+            //加点位的调用
+            console.log(111111);
+            console.log(this.nextIdx);
+            window.sendCmdToUnity("JsAddPOIPoint", {
+                id: "p" + this.nextIdx, //必传id并且需要唯一
+                name: this.dataJson.iconName,
+                lat: this.dataJson.lat,
+                lng: this.dataJson.lng,
+                color: this.colorIcon,
+                pointType:  this.pointType,
+                extraData: "{edata:'1213131'}",
+            });
+
+
+
+        },
+
+
+    }
+
+
+
+
+
+})
+
+
+
+</script>
+
+
+
+
+</html>
