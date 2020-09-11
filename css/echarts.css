@@ -1,0 +1,15 @@
+
+
+
+body.app-body {
+    min-width: 1300px;
+    font-size: 14px;
+    background-color: rgb(54,98,153);
+    font-weight: 400;
+    font-family: Hiragino Sans GB,microsoft yahei,arial,sans-serif;
+}
+/*等比例缩小导航条自适应*/
+body.app-body .container {
+    width: 1200px;
+    margin: 0 auto;
+}
