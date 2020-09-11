@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>房屋排查情况</title>
+
+</head>
+<style type="text/css">
+
+    *{
+        margin: 0px;
+        padding: 0px;
+    }
+    body.supervise{
+        background-color:black;
+        /*background-color:rgba(255,255,255,0);*/
+
+    }
+
+    /*width=380*/
+    .flex-container{
+        height: 290px;
+        width: 380px;
+        border: 1px solid red;
+        box-sizing: border-box;
+        flex-direction: column;
+        /*margin: 30px auto;*/
+    }
+
+    .item1-flex{
+        height: 290px;
+        width: 380px;
+        border: 1px solid blue;
+        box-sizing: border-box;
+    }
+
+    ::-webkit-scrollbar {
+        display: none;
+    }
+
+    [v-cloak]{
+        display: none;
+    }
+
+
+
+
+
+</style>
+
+
+
+<body class="supervise"  >
+
+
+
+<div  class="container-fluid" id="supervise-home" v-cloak>
+    <div class="supervise-charts">
+        <div class="flex-container">
+
+            <div class="item1-flex"  id="home-safe">  </div>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+
+</body>
+<script type="text/javascript" src="../../js/new-vue.js"> </script>
+<script src="../../js/echarts.js"></script>
+<script type="text/javascript">
+    var vm=new Vue({
+        el:'#supervise-home',
+        data:{
+
+
+        },
+        methods:{
+            getSafe(){
+                var myChart1 = echarts.init(document.getElementById('home-safe'));
+                var  option = {
+                    grid:{
+                        top:'15%',
+                        bottom:'12%',
+                        right:'5%',
+                        left:'5%'
+                    },
+                    tooltip : {
+                        axisPointer : {
+                        }
+                    },
+
+                    xAxis: {
+                        type: 'category',
+                        offset:5,
+                        data:['已录入栋数','已提交栋数','已审核栋数','参考总栋数'],
+                        axisLine: {
+                            show: true,
+                            lineStyle:{
+                                show:false,
+                                color:'#979797',
+                                width:1
+                            }
+                        },
+                        axisTick: {
+                            show: false,
+
+                        },
+                        axisLabel: {
+                            interval:0,
+                            textStyle: {
+                                color: '#fff',
+                                fontSize:14,
+                                fontWeight:'bold',
+                            },
+                        }
+
+                    },
+                    yAxis: {
+                        type:'value',
+                        axisLine:{
+                            show:false,
+                            lineStyle:{
+                                color:'#fff',
+                                show:false,
+                                width:0.3
+                            }
+                        },
+
+                        splitLine: {
+                            show: false
+                        },
+                        axisTick: {
+                            show: false
+                        },
+                        axisLabel: {
+                            interval:0,
+                            show:false,
+                            fontSize:12,
+                            fontWeight:'bold'
+                        },
+
+                    },
+
+                    series: [
+                        {
+                            type: 'bar',
+                            name:'房屋排查情况',
+                            barWidth: '40%',
+
+                            itemStyle: {
+
+                                normal: {
+                                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                        offset:0.2,
+                                        color: '#2ACFCD',
+
+                                    }, {
+                                        offset: 1,
+                                        color: '#03A8A6'
+                                    }]),
+                                },
+
+                            },
+                            data:[{value:7835,itemStyle:{normal:{
+                                        barBorderRadius:[10,10,0,0],
+                                    }
+                                }
+                                },{value:6912,itemStyle:{normal:{
+                                        barBorderRadius:[10,10,0,0],
+                                    }
+                                }},{value:6883,itemStyle:{normal:{
+                                        barBorderRadius:[10,10,0,0],
+                                    }
+                                }},{value:9874,itemStyle:{normal:{
+                                        barBorderRadius:[10,10,0,0],
+                                    }
+                                }}],
+                            label:{
+                                show:true,
+                                fontWeight:'bold',
+                                fontSize:14,
+                                color:'#fff',
+                                position: 'top',
+                                // formatter:'{c}'
+                            }
+
+                        },
+                    ]
+                };
+                myChart1.setOption(option);
+            },
+
+        },
+
+        mounted:function () {
+            this.getSafe()
+        }
+
+
+
+
+    })
+
+
+
+
+
+</script>
+
+
+
+</html>

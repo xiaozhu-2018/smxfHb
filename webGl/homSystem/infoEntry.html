@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>房屋信息录入</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<style type="text/css">
+
+    *{
+        margin: 0px;
+        padding: 0px;
+    }
+
+    body.supervise{
+        min-width: 960px;
+        color: #fff;
+        height: 100%;
+        margin: auto;
+        /*background:rgba(0,0,0,1);*/
+        /*border: 2px solid red;*/
+        /*background-color: blue;*/
+
+    }
+
+    .con1 .title{
+        text-align: center;
+        height: 60px;
+        /*width: 100%;*/
+        border: 1px solid #5F5F5F;
+        line-height: 60px;
+        background:#000000;
+        font-size: 24px;
+        color: #fff;
+        /*font-family: 微软雅黑;*/
+
+        letter-spacing: 4px;
+        font-weight: bolder;
+
+    }
+
+
+
+    .con-flex{
+        display: -webkit-flex;
+        display: flex;
+
+        box-sizing: border-box;
+        height: 670px;
+        min-width: 962px;
+
+    }
+    .item1-flex{
+        width: 86%;
+        height: 100%;
+        box-sizing: border-box;
+        /*border: 1px solid blue;*/
+        background:#232325;
+        overflow: auto;
+    }
+
+
+    .con-form{
+        width: 100%;
+        height: 100%;
+        /*border-right: 1px solid #424242;*/
+        box-sizing: border-box;
+
+    }
+
+
+    .home-info{
+        margin-left: 60px;
+        /*border: 1px solid blue;*/
+        border-right: 1px solid #424242;
+        /*height: 40px;*/
+        font-size: 18px;
+        font-weight: bold;
+        font-family: 微软雅黑;
+        letter-spacing: 2px;
+        display: flex;
+        display: -webkit-flex;
+        box-sizing: border-box;
+    }
+
+
+    /*form表单样式*/
+    .label-title{
+        width: 15%;
+        height: 100%;
+        line-height: 40px;
+        box-sizing: border-box;
+    }
+
+    .add-text{
+        width: 85%;
+        box-sizing: border-box;
+        height: 100%;
+        line-height: 32px;
+
+    }
+    .add-text p{
+        height: 80%;
+        display: inline-block;
+        margin-top: 5px;
+
+    }
+
+
+    input[type=text]{
+        width: 400px;
+        height: 26px;
+        margin-top: 8px;
+        background: #BDBDBD;
+        border: 1px solid rgba(97, 97, 97, 1);
+        border-radius: 3px;
+        outline: none;
+        box-sizing: border-box;
+    }
+
+
+    input[type=radio]{
+        /*width: 15px;*/
+        /*background: #2EFEF7;*/
+        /*border: 2px solid #5F5F5F;*/
+        /*outline: none;*/
+        /*box-sizing: border-box;*/
+        /*padding-right: 20px;*/
+       /*line-height: 32px;*/
+        position: absolute;
+        opacity: 0;
+
+    }
+
+    /*radio中的样式*/
+
+    .sel-radio input[type="radio"] + .radio-label:before {
+        content: '';
+        background: #f4f4f4;
+        border-radius: 100%;
+        border: 2px solid #b4b4b4;
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        position: relative;
+        top:3px;
+        margin-right:10px;
+        vertical-align:center;
+        /*vertical-align: top;*/
+        cursor: pointer;
+        text-align: center;
+        -webkit-transition: all 250ms ease;
+        transition: all 250ms ease;
+    }
+
+    .sel-radio input[type="radio"]:checked + .radio-label:before {
+        background-color: #3197EE;
+        box-shadow: inset 0 0 0 2px #f4f4f4;
+    }
+    .sel-radio input[type="radio"]:focus + .radio-label:before {
+        outline: none;
+
+    }
+    .sel-radio input[type="radio"]:disabled + .radio-label:before {
+        box-shadow: inset 0 0 0 3px #3197EE;
+        border-color: #3197EE;
+        background: #3197EE;
+    }
+    .sel-radio input[type="radio"] + .radio-label:empty:before {
+        margin-right: 0;
+    }
+
+
+    /*.sel-radio {*/
+        /*margin: 0.5rem;*/
+    /*}*/
+
+
+
+
+ .add-text .sel-radio{
+     height: 80%;
+     display: inline-block;
+     margin-top: 5px;
+     box-sizing: border-box;
+     color: #fff;
+     padding: 0px 35px 0px 0px;
+     /*border: 1px solid red;*/
+
+ }
+
+
+
+
+    /*select下拉选择框样式*/
+    .add-text select{
+        width: 100px;
+        height: 26px;
+        font-weight: bold;
+        margin-top: 8px;
+        font-size: 16px;
+        border: 1px solid #999999;
+        border-radius: 5px;
+        background: #BDBDBD;
+        outline: none;
+        color: #3A3A3A;
+        display: inline-block;
+    }
+
+
+     select:nth-child(2){
+       margin-left: 15px;
+    }
+    select:nth-child(3){
+        margin-left: 15px;
+    }
+    select:nth-child(4){
+        margin-left: 15px;
+    }
+    .add-text select option{
+        border-radius: 5px;
+        width: 90px;
+        height: 26px;
+        font-weight: bold;
+        font-size: 16px;
+        /*border: 1px solid #999999;*/
+        background: #BDBDBD;
+        outline: none;
+        color: #3A3A3A;
+    }
+
+
+
+
+
+
+    /*文件上传样式*/
+    .three-model{
+        position: relative;
+
+
+    }
+
+
+   .img-file{
+       position: absolute;
+       left: 0;
+       top: 0;
+       opacity: 0;
+       outline: none;
+       z-index: 10;
+
+   }
+
+    .img-btn1{
+        padding: 4px 15px ;
+        border-radius: 5px;
+        background: #E7E7E7;
+        outline: none;
+        font-size: 16px;
+        font-family: MicrosoftYaHei-Bold, MicrosoftYaHei;
+        font-weight: bold;
+        color: #2ACFCD;
+        border: none;
+        position: absolute;
+        margin-top: 3px;
+    }
+
+    .img-btn2{
+        padding: 4px 15px ;
+        border-radius: 5px;
+        background: #E7E7E7;
+        outline: none;
+        font-size: 16px;
+        font-family: MicrosoftYaHei-Bold, MicrosoftYaHei;
+        font-weight: bold;
+        color: #2ACFCD;
+        border: none;
+        position: absolute;
+
+    }
+
+
+    .item2-flex{
+        width: 14%;
+        height: 100%;
+        box-sizing: border-box;
+        /*border: 1px solid green;*/
+        background:#424242;
+    }
+
+
+    .right-con{
+        width: 100%;
+        height: 100%;
+        /*border: 1px solid red;*/
+        text-align: center;
+        box-sizing: border-box;
+
+    }
+    .right-btn1{
+       margin-top: 25px;
+    }
+    .right-btn2{
+        margin-top: 25px;
+    }
+    .right-btn1>button{
+        width: 100px;
+        background:rgba(42, 207, 205, 0.3) ;
+        color:#fff;
+        height: 40px;
+        font-size: 22px;
+        line-height: 29px;
+        font-weight: bold;
+        font-family: 微软雅黑;
+        border-radius: 5px;
+        border: 2px solid rgba(255,255,255,0.3);
+        letter-spacing: 2px;
+        outline: none;
+    }
+
+    .right-btn2>button{
+        width: 100px;
+        background:#5F5F5F;
+        color:#fff;
+        height: 40px;
+        font-size: 22px;
+        line-height: 29px;
+        font-weight: bold;
+        font-family: 微软雅黑;
+        border-radius: 5px;
+        border: 2px solid rgba(255,255,255,0.3);
+        letter-spacing: 2px;
+        outline: none;
+    }
+    /*滚动条样式*/
+    .item1-flex::-webkit-scrollbar{
+        width: 12px;
+        /*height: 50px;*/
+        /*border: 1px solid red;*/
+        padding-left:30px;
+        background-color:#232325;
+    }
+
+    .item1-flex::-webkit-scrollbar-track{
+       -webkit-box-shadow:inset 0 0 6px rgba(0,0,0,.3);
+        /*border-radius:10px;*/
+        background-color:#232325;
+        width:40px;
+    }
+    .item1-flex::-webkit-scrollbar-thumb{
+        border-radius:10px;
+        height:120px;
+        /*border: 1px solid green;*/
+       -webkit-box-shadow:inset 0 0 6px #8E8E8E;
+       /*-webkit-box-shadow: inset 2px 4px 0px rgba(38, 38, 38, 0.68);*/
+       background-color:#555;
+    }
+
+
+    body::-webkit-scrollbar {
+        display: none;
+    }
+
+    [v-cloak]{
+        display: none;
+    }
+
+</style>
+
+
+
+<body class="supervise"  >
+
+
+
+<div   id="supervise-home" v-cloak>
+
+
+     <div class="con1">
+          <div class="title"> 房屋信息录入 </div>
+     </div>
+
+    <div class="con2">
+        <div class="con-flex">
+            <div class="item1-flex">
+
+                  <form  :model="form" ref="form" >
+                  <div class="con-form">
+                      <div class="home-info">
+                          <div class="label-title"> 房屋ID </div>
+                          <div class="add-text " >
+                                  <P>  42781 </P>
+                          </div>
+                      </div>
+
+                      <div class="home-info">
+                          <div class="label-title"> 房屋名称 </div>
+                          <div class="add-text " >
+                              <input type="text" v-model="form.hName" >
+                          </div>
+                      </div>
+                      <div class="home-info">
+                          <div class="label-title"> 房屋地点 </div>
+                          <div class="add-text " >
+                                <!--省选项-->
+                              <select  v-model="form.hAddress1"  @change="selProvince()" >
+                                  <option  :value="optsItem.value" :name="optsItem.model"   v-for="(optsItem,a) in provinceArr" :key="a"  >{{optsItem.label}}</option>
+                              </select>
+                               <!--市选项-->
+                              <select  v-model="form.hAddress2"  @change="selCity()" >
+                                  <option  :value="optsItem.value" :name="optsItem.model"   v-for="(optsItem,b) in selCityJson" :key="b"  >{{optsItem.label}}</option>
+                              </select>
+                              <!--区选项-->
+                              <select  v-model="form.hAddress3"  @change="selArea()" >
+                                  <option  :value="optsItem.value" :name="optsItem.model"   v-for="(optsItem,c) in selAreaJson" :key="c"  >{{optsItem.label}}</option>
+                              </select>
+                              <!--街道选择-->
+
+                              <select  v-model="form.hAddress4"  @change="selStreet()" >
+                                  <option  :value="optsItem.value" :name="optsItem.model"   v-for="(optsItem,d) in selStreetJson" :key="d"  >{{optsItem.label}}</option>
+                              </select>
+
+                          </div>
+                      </div>
+
+
+                      <div class="home-info" v-for="(item,g) in formLabel" :key="g">
+                          <div class="label-title"> {{item.label}} </div>
+                          <div class="add-text " >
+                              <input type="text" v-model="form[item.model]" v-if="!item.type">
+                              <select   v-if="item.type==='select1'" v-model="form[selItem1.model]"  v-for="(selItem1,j) in item.selArr" :key="j"  @change="selAddress(selItem1)">
+                                  <option  :value="optsItem.value" :name="optsItem.model"   v-for="(optsItem,k) in selItem1.opts1" :key="k">{{optsItem.label}}</option>
+                              </select>
+
+
+
+                              <div class="sel-radio"   v-if="item.type==='radio'" v-for="(radioItem,i) in item.radioArr"  :key="i">
+                                  <input type="radio"  :id="radioItem.id"  :value="radioItem.label" :name="radioItem.model"  v-model="form[radioItem.model]" >
+                                  <label  class="radio-label" :for="radioItem.id" >{{radioItem.name}}</label>
+                              </div>
+
+                          </div>
+                      </div>
+
+
+                        <!--图片上传按钮-->
+                      <!--<div class="home-info"  style="height: 40px;margin-top: 30px;">-->
+                              <!--<div class="label-title"> 房屋照片  </div>-->
+                              <!--<div class="add-text three-model">-->
+                              <!--<input type="button" id="btn1" class="img-btn1" value="上传照片"><span id="text1" ></span>-->
+                              <!--<input type="file" name="fileName"  class="img-file" ref="imgInput"  id="fileId"   @change="saveImg()"  style="width: 100px;" >-->
+                              <!--</div>-->
+                      <!--</div>-->
+                      <div class="home-info"  style="height: 30px;">
+                      </div>
+                      <div class="home-info"  style="height: 120px;">
+                          <div class="label-title"> 房屋照片  </div>
+
+                          <div class="add-text three-model" style="height: 120px; box-sizing: border-box;border: 1px solid #5F5F5F;  border-radius: 5px; width: 200px;">
+                              <input type="button"  class="img-btn2" value="上传照片"  style="width: 100%;height: 100%;">
+                              <input type="file"  class="img-file" name="fileName"  title=""  ref="imgInput2"   @change="saveImg1()"  style="width: 200px;height: 100%;" >
+                              <!--'data:image/png;base64,'+imageUrl2-->
+                              <img   v-if="form.imageUrl2"  :src="'data:image/png;base64,'+form.imageUrl2"    style="width: 100%;height: 100%;position: absolute;  border-radius: 5px;box-sizing: border-box;" >
+
+                          </div>
+
+
+                          <div class="add-text three-model" style="height: 120px; box-sizing: border-box;border: 1px solid #5F5F5F;  border-radius: 5px;margin-left: 10px; width: 200px;">
+                              <input type="button"  class="img-btn2" value="上传照片"  style="width: 100%;height: 100%;">
+                              <input type="file"  class="img-file" name="fileName"  title=""  ref="imgInput3"   @change="saveImg2()"  style="width: 200px;height: 100%;" >
+                              <!--'data:image/png;base64,'+imageUrl2-->
+                              <img   v-if="form.imageUrl3"  :src="'data:image/png;base64,'+form.imageUrl3"    style="width: 100%;height: 100%;position: absolute;  border-radius: 5px;box-sizing: border-box;" >
+
+                          </div>
+
+                      </div>
+
+
+                      <div class="home-info"  style="height: 30px;">
+                      </div>
+
+                  </div>
+
+                  </form>
+
+            </div>
+
+
+
+
+            <div class="item2-flex">
+                 <div class="right-con">
+                      <div class="right-btn1">
+                            <button @click.stop="saveHome"> 保存</button>
+                      </div>
+                      <div class="right-btn2">
+                          <button @click.stop="skipUp"> 跳过</button>
+                      </div>
+                     <!--<p style="color: red">{{form.homeType}}</p>-->
+                 </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+
+</div>
+
+
+
+
+</body>
+<script type="text/javascript" src="../../js/new-vue.js"> </script>
+<script src="../../js/echarts.js"></script>
+<script type="text/javascript">
+    //上传ID给unity端
+
+
+    var fjCityArr=[{label:'请选择', value:''},{label:'厦门市',model:'hAddress2',value:'厦门市'},{label:'泉州市',model:'hAddress2',value:'泉州市'}];
+    var cityAreaArr=[{label:'请选择', value:''},{label:'思明区',model:'hAddress3',value:'思明区'},{label:'湖里区',model:'hAddress3',value:'湖里区'},
+        {label:'集美区',model:'hAddress3',value:'集美区'},{label:'翔安区',model:'hAddress3',value:'翔安区'}, {label:'同安区',model:'hAddress3',value:'同安区'},];
+
+    var cityQzArr=[{label:'请选择', value:''},{label:'辖鲤城',model:'hAddress3',value:'辖鲤城'},
+        {label:'丰泽区',model:'hAddress3',value:'丰泽区'},{label:'洛江区',model:'hAddress3',value:'洛江区'},{label:'泉港区',model:'hAddress3',value:'泉港区'}];
+
+    var XmSiMingArr=[{label:'请选择', value:'' },{label:'筼筜街道',model:'hAddress4',value:'筼筜街道'},{label:'莲前街道',model:'hAddress4',value:'莲前街道'},{label:'开元街道',model:'hAddress4',value:'开元街道'}];
+    var XmHuLiArr=[{label:'请选择', value:'' },{label:'江头街道',model:'hAddress4',value:'江头街道'},{label:'海天路',model:'hAddress4',value:'海天路'},{label:'金山街道',model:'hAddress4',value:'金山街道'}];
+
+    var QzXiaLiArr=[{label:'请选择', value:'' },{label:'南岳后街',model:'hAddress4',value:'南岳后街'},{label:'温岭南路',model:'hAddress4',value:'温岭南路'},{label:'浮桥街',model:'hAddress4',value:'浮桥街'}];
+     var QzFenZeArr=[{label:'请选择', value:'' },{label:'通港路',model:'hAddress4',value:'通港路'},{label:'丰海路',model:'hAddress4',value:'丰海路'},{label:'通港西街',model:'hAddress4',value:'通港西街'}];
+
+    var  selCityJson=[{label:'请选择', value:''}];
+    var  selAreaJson=[{label:'请选择', value:''}];
+    var  selStreetJson=[{label:'请选择', value:''}];
+
+    //var hId=1;
+     var url = window.location.href;
+  // var url='http://172.22.55.247/webGl/homSystem/infoEntry.html?hId=1';
+    var showId;
+
+    //获取urlId
+    var querys = url.substring(url.indexOf('?') + 1).split('&');
+    var result=[];
+    for(var i=0;i<querys.length;i++){
+        var temp=querys[i].split('=');
+        if(temp.length<2){
+            result[temp[0]]='';
+        }else{
+            result[temp[0]]=temp[1];
+        }
+     }
+        console.log(result);
+
+   var hId=result['hId'];
+    //var hId='航空大厦';
+    var FormData={
+        hNum:42781,
+
+        hId:hId,
+        hName:'',
+
+        //房屋地点
+        hAddress1:'',
+        hAddress2:'',
+        hAddress3:'',
+        hAddress4:'',
+        //房屋类别
+        homeType:'',
+        //详细地址
+        detailArs:'',
+        //用地性质
+        landType:'',
+        //产权人
+        pOwner:'',
+        //联系电话
+        tel:'',
+        //建成年份
+        yearBuilt:'90年代',
+        //贫困户
+        poorHouse:'',
+        //地上层数
+        upFloor:'',
+        //地下层数
+        downFloor:'',
+        //建筑面积
+        builtArea:'',
+        //基础类型
+        baseType:'',
+        //设计情况
+        design:'',
+        //施工图纸
+        building:'',
+        //审批手续
+        Approval:'',
+        //改造情况
+        remake:'',
+        //用地性质
+        landUse:'',
+        //结构形式
+        structure:'',
+        //经度纬度
+        lng:'',
+        lat:'',
+        //排查结论
+        investigation:'',
+        //六大类型
+        sixType:'',
+        //图片字符串
+        imageUrl2:'',
+        imageUrl3:'',
+
+    };
+
+
+    var showDetail=function () {
+          if(hId){
+            showId=hId;
+            var dataArr=JSON.parse(localStorage.getItem('homeInfo'));
+            console.log(dataArr);
+              if(dataArr){
+                  dataArr.forEach(function (item,index) {
+                      console.log(1111);
+                      if(showId===item.hId){
+                          console.log(item);
+                          fjCityArr.forEach(function (item1,index1) {
+                              if(item1.label===item.hAddress2){
+                                  selCityJson=fjCityArr;
+                              }
+                          });
+                          cityAreaArr.forEach(function (item2,index1) {
+                              if(item2.label===item.hAddress3){
+                                  selAreaJson=cityAreaArr;
+                              }
+                          });
+                          cityQzArr.forEach(function (item2,index1) {
+                              if(item2.label===item.hAddress3){
+                                  selAreaJson=cityQzArr;
+                              }
+                          });
+                          XmSiMingArr.forEach(function (item3,index1) {
+                              if(item3.label===item.hAddress4){
+                                  selStreetJson=XmSiMingArr;
+                              }
+                          })
+                          XmHuLiArr.forEach(function (item3,index1) {
+                              if(item3.label===item.hAddress4){
+                                  selStreetJson=XmHuLiArr;
+                              }
+                          });
+                          QzXiaLiArr.forEach(function (item3,index1) {
+                              if(item3.label===item.hAddress4){
+                                  selStreetJson=QzXiaLiArr;
+                              }
+                          });
+                          QzFenZeArr.forEach(function (item3,index1) {
+                              if(item3.label===item.hAddress4){
+                                  selStreetJson=QzFenZeArr;
+                              }
+                          });
+                          FormData=item;
+
+
+                      }
+                  })
+              }
+
+
+          }
+    }
+    showDetail();
+
+
+    var vm=new Vue({
+        el:'#supervise-home',
+        data:{
+            formLabel:[
+
+                {label:'详细地址',model:'detailArs'},
+                {label:'房屋类别',type:'radio',radioArr:[{label:'1',id:'type-1',model:'homeType',name:'城市房屋'},{label:'2',id:'type-2',model:'homeType',name:'农村房屋'}]},
+                 {label:'用地性质',type:'radio',radioArr:[{label:'1',id:'land1',name:'国有土地',model:'landType'},{label:'2',id:'land2',name:'集体土地',model:'landType'}]},
+                 {label:'产权人',model:'pOwner'},
+                 {label:'联系电话',model:'tel'},
+                 {label:'建成年份',type:'select1',
+                   selArr:[ { model:'yearBuilt', opts1:[ {label:'90年代',value:'90年代',model:'yearBuilt'},{label:'80年代',value:'80年代',model:'yearBuilt'},{label:'2000年',value:'2000年',model:'yearBuilt'}] }],
+
+                },
+                 {label:'贫困户',type:'radio',radioArr:[{label:'1',id:'poorH1',name:'是',model:'poorHouse'},{label:'2',id:'poorH2',name:'否',model:'poorHouse'}]},
+                 {label:'地上层数',model:'upFloor'},
+                 {label:'地下层数',model:'downFloor'},
+                 {label:'建筑面积',model:'builtArea'},
+
+                 {label:'基础类型',type:'radio',radioArr:[{label:'1',id:'baseType-1',name:'基础条形',model:'baseType'},{label:'2',id:'baseType-2',name:'独立基础',model:'baseType'}
+                         ,{label:'3',name:'桩基础',id:'baseType-3',model:'baseType'},{label:'4',id:'baseType-4',name:'不确定',model:'baseType'},{label:'5',id:'baseType-5',name:'其他',model:'baseType'}
+
+                 ]},
+                {label:'设计情况',type:'radio',radioArr:[{label:'1',id:'design-1', model:'design',name:'未经正规设计'},{label:'2',id:'design-2',model:'design',name:'正规设计'}]},
+
+                {label:'施工图纸',type:'radio',radioArr:[{label:'1',id:'build-1',name:'有',model:'building'},{label:'2',id:'build-2',name:'无',model:'building'}]},
+
+                {label:'审批手续',type:'radio',radioArr:[{label:'1',id:'Approval-1',name:'有',model:'Approval'},{label:'2',id:'Approval-2',name:'无',model:'Approval'}]},
+
+                {label:'改造情况',type:'radio',radioArr:[{label:'1',id:'remake-1', model:'remake',name:'建成后未经改造'},{label:'2',id:'remake-2',model:'remake',name:'建成后曾改造'}]},
+                {label:'用地性质',type:'radio',radioArr:[{label:'1',id:'landUse-1',model:'landUse',name:'住宅'},{label:'2',id:'landUse-2',model:'landUse',name:'厂房'},{label:'3',id:'landUse-3',model:'landUse',name:'行政机关办公楼'},
+                        {label:'4',id:'landUse-4',model:'landUse',name:'非星级酒店、招待所'},{label:'5',id:'landUse-5',model:'landUse',name:'一般办公楼、商业综合楼'},{label:'6',id:'landUse-6',model:'landUse',name:'大中小学校、幼儿园、培训机构'},
+                        {label:'7',id:'landUse-7',  model:'landUse',name:'商业场所'},{label:'8',id:'landUse-8',model:'landUse',name:'星级酒店'},{label:'9',id:'landUse-9',model:'landUse',name:'医疗卫生场所'},{label:'10',id:'landUse-10',model:'landUse',name:'商业综合楼'},
+                        {label:'11',id:'landUse-11',model:'landUse',name:'娱乐场所'},{label:'12',id:'landUse-12',model:'landUse',name:'养老、托老机构场所、儿童服务院'},{label:'13',id:'landUse-13',model:'landUse',name:'交通运输场所'},
+                        {label:'14',id:'landUse-14',model:'landUse',name:'文化旅游场所'},{label:'15',id:'landUse-15',model:'landUse',name:'民间信仰场所'},{label:'16',id:'landUse-16',model:'landUse',name:'商业综合楼'},{label:'17',id:'landUse-17',model:'landUse',name:'其他'}]},
+
+                {label:'结构形式',type:'radio',radioArr:[{label:'1',id:'st-1',model:'structure',name:'混合结构'},
+                        {label:'2',id:'st-2',model:'structure',name:'钢筋混凝土结构'},{label:'3',id:'st-3',model:'structure',name:'钢结构'},
+                        {label:'4',id:'st-4',model:'structure',name:'石结构'},{label:'5',id:'st-5',model:'structure',name:'底部框架-上部砖混结构'},{label:'6',id:'st-6',model:'structure',name:'土木结构'},
+                        {label:'7',id:'st-7',model:'structure',name:'木结构'},{label:'8',id:'st-8',model:'structure',name:'其他'}]},
+
+                {label:'经度',model:'lng'},
+                {label:'纬度',model:'lat'},
+                {label:'排查结论',type:'radio',radioArr:[{label:'1',id:'investigation-1',model:'investigation',name:'暂无安全隐患'},{label:'2',id:'investigation-2',model:'investigation',name:'一般安全隐患'},
+                        {label:'3',id:'investigation-3',model:'investigation',name:'重大安全隐患'}]},
+
+                {label:'六大类型',type:'radio',radioArr:[{label:'1',model:'sixType',id:'sixType-1',name:'非六大重点排查房屋'},
+                        {label:'2',model:'sixType',id:'sixType-2',name:'集中隔离健康观察场所,定点医院，开复工项目员工集中居住房屋'},
+                        {label:'3',model:'sixType',id:'sixType-3',name:'无资质设计，无资质施工房屋'},{label:'4',id:'sixType-4',model:'sixType',name:'擅自加层，改扩建的房屋'},
+                        {label:'5',model:'sixType',id:'sixType-5',name:'生产、经营、居住功能混杂的‘三合一’自建房'},{label:'6',id:'sixType-6',model:'sixType',name:'用于出租时特别牟利的城乡结合部自建房'},
+                        {label:'7',model:'sixType',id:'sixType-7',name:'擅自改变功能用于居住使用的厂房'}
+                      ]}
+
+               // {label:'房屋照片',type:'upload'},
+
+               ],
+            //保存信息ID
+             showId:showId,
+            //跳转传参数
+            skipJson1:{save:true},
+            skipJson2:{save:false},
+            form:FormData,
+            provinceArr:[
+                        {label:'请选择',value:''},
+                        {label:'福建省',model:'hAddress1' ,value:'福建省'},
+                        {label:'浙江省',model:'hAddress1' ,value:'浙江省'},
+                        {label:'广东省',model:'hAddress1' ,value:'广东省'}] ,
+             //空数组
+          selCityJson:selCityJson,
+          selAreaJson:selAreaJson,
+          selStreetJson:selStreetJson,
+            //福建各市
+            fjCityArr:fjCityArr,
+            //福建市各区
+            cityAreaArr:cityAreaArr,
+
+            cityQzArr:cityQzArr,
+
+            XmSiMingArr:XmSiMingArr,
+            XmHuLiArr:XmHuLiArr,
+
+            QzXiaLiArr:QzXiaLiArr,
+            QzFenZeArr:QzFenZeArr,
+            //浙江
+            zjCityArr:[{label:'请选择',value:''},{label:'杭州市',model:'hAddress2',value:'杭州市'},{label:'宁波市',model:'hAddress2',value:'宁波市'},{label:'温州市',model:'hAddress2',value:'温州市'} ] ,
+
+            //存储ID
+            hId:hId,
+           //存储拷贝的初始模板
+            imageUrl:'',
+            //图片2,3
+            imageUrl2:'',
+            imageUrl3:'',
+            //保存数据
+            houseJsonData:[]
+
+        },
+        methods:{
+            saveImg(event){
+                let file = this.$refs.imgInput.files[0];
+                let fileReader = new FileReader();
+                if (file) {
+                  let imgUrl=fileReader.readAsDataURL(file);
+
+                }
+                fileReader.onload = () => {
+                    let base64Str = fileReader.result.split(',')[1]
+                    this.imageUrl=base64Str;
+                }
+
+            },
+
+            saveImg1(){
+                let file = this.$refs.imgInput2.files[0];
+                let fileReader = new FileReader();
+                if (file) {
+                    let imgUrl=fileReader.readAsDataURL(file);
+
+                }
+                fileReader.onload = () => {
+                    let base64Str = fileReader.result.split(',')[1]
+                    this.form.imageUrl2=base64Str;
+
+                }
+            },
+
+            saveImg2(){
+                let file = this.$refs.imgInput3.files[0];
+                let fileReader = new FileReader();
+                if (file) {
+                    let imgUrl=fileReader.readAsDataURL(file);
+                }
+                fileReader.onload = () => {
+                    let base64Str = fileReader.result.split(',')[1]
+                    this.form.imageUrl3=base64Str;
+
+                }
+            },
+            saveHome(){
+
+                let oldArr=JSON.parse(localStorage.getItem('homeInfo'));
+                if(oldArr){
+                    console.log(oldArr);
+                    this.houseJsonData=oldArr;
+                }
+
+                let jsonArr=this.form;
+                console.log(this.form.hName);
+                this.houseJsonData.push(jsonArr);
+                localStorage.setItem('homeInfo',JSON.stringify(this.houseJsonData));
+                console.log(this.houseJsonData);
+               // this.form.hId++;
+                this.form.hNum++;
+
+                this.clearForm();
+               window.UnityCommand(this.skipJson1)
+
+            },
+            //跳过
+            skipUp(){
+                 window.UnityCommand(this.skipJson2)
+            },
+
+            selAddress(item){
+              console.log(item);
+                console.log(this.form.hAddress1);
+            },
+             //省份选择
+            selProvince(){
+                console.log(this.form.hAddress1);
+
+                this.form.hAddress2=''
+                this.form.hAddress3='';
+                this.form.hAddress4='';
+                if(this.form.hAddress1==='福建省'){
+                    this.selCityJson=this.fjCityArr;
+                }
+                if(this.form.hAddress1==='浙江省'){
+                    this.selCityJson=this.zjCityArr;
+                }
+
+
+            },
+            selCity(){
+                console.log(this.form.hAddress2);
+                this.form.hAddress3='';
+                this.form.hAddress4='';
+                if(this.form.hAddress2==='厦门市'){
+                    this.selAreaJson=this.cityAreaArr;
+                }
+                if(this.form.hAddress2==='泉州市'){
+                    this.selAreaJson=this.cityQzArr;
+                }
+
+            },
+            selArea(){
+                console.log(this.form.hAddress3);
+                this.form.hAddress4='';
+                if(this.form.hAddress3==='思明区'){
+                    this.selStreetJson=this.XmSiMingArr;
+                }
+                if(this.form.hAddress3==='湖里区'){
+                    this.selStreetJson=this.XmHuLiArr;
+                }
+                if(this.form.hAddress3==='辖鲤城'){
+                    this.selStreetJson=this.QzXiaLiArr;
+                }
+                if(this.form.hAddress3==='丰泽区'){
+                    this.selStreetJson=this.QzFenZeArr;
+                }
+            },
+            selStreet(){
+                console.log(this.form.hAddress4);
+            },
+
+            showDetail(){
+
+            },
+
+
+
+            //初始化表单
+            clearForm(){
+                this.form.hName='';
+                this.form.hAddress1='';
+                this.form.hAddress2='';
+                this.form.hAddress3='';
+                this.form.hAddress4='';
+                this.form.homeType='';
+                this.form.landType='';
+                this.form.pOwner='';
+                this.form.tel='';
+                this.form.yearBuilt='90年代';
+                this.form.poorHouse='';
+                this.form.upFloor='';
+                this.form.downFloor='';
+                this.form.builtArea='';
+                this.form.baseType='';
+                this.form.design='';
+                this.form.landUse='';
+                this.form.structure='';
+                this.form.lng='';
+                this.form.lat='';
+                this.form.investigation='';
+                this.form.sixType='';
+                this.form.imageUrl2='';
+                this.form.imageUrl3='';
+                this.form.building='';
+                this.form.Approval='';
+                this.form.remake='';
+                //detailArs
+                this.form.detailArs='';
+                this.selCityJson=[{label:'请选择', value:''}];
+                this.selAreaJson=[{label:'请选择', value:''}];
+                this.selStreetJson=[{label:'请选择', value:''}];
+
+            }
+
+
+
+        },
+
+        created:function(){
+         // this.defaultForm=JSON.parse(JSON.stringify(this.form));
+        },
+        mounted:function () {
+
+        }
+
+
+
+
+    })
+
+
+
+
+
+</script>
+
+
+
+</html>

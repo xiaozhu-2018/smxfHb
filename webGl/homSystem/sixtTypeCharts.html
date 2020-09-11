@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>房屋六大类型统计</title>
+
+</head>
+<style type="text/css">
+
+    *{
+        margin: 0px;
+        padding: 0px;
+    }
+    body.supervise{
+        background-color:black;
+        /*background-color:rgba(255,255,255,0);*/
+
+    }
+
+    /*width=380*/
+    .flex-container{
+        height: 300px;
+        width: 380px;
+        border: 1px solid red;
+        box-sizing: border-box;
+
+        flex-direction: column;
+        /*margin: 30px auto;*/
+    }
+
+    .item1-flex{
+        height: 300px;
+        width: 380px;
+        border: 1px solid blue;
+        box-sizing: border-box;
+    }
+
+    ::-webkit-scrollbar {
+        display: none;
+    }
+
+    [v-cloak]{
+        display: none;
+    }
+
+
+
+
+
+</style>
+
+
+
+<body class="supervise"  >
+
+
+
+<div  class="container-fluid" id="supervise-home" v-cloak>
+    <div class="supervise-charts">
+        <div class="flex-container">
+
+            <div class="item1-flex"  id="home-safe">  </div>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+
+</body>
+<script type="text/javascript" src="../../js/new-vue.js"> </script>
+<script src="../../js/echarts.js"></script>
+<script type="text/javascript">
+    var vm=new Vue({
+        el:'#supervise-home',
+        data:{
+
+
+        },
+        methods:{
+            getSafe(){
+                var myChart1 = echarts.init(document.getElementById('home-safe'));
+                var option={
+                    tooltip : {
+                        trigger: 'axis',
+                        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                            type : 'shadow',        // 默认为直线，可选为：'line' | 'shadow'
+                        }
+                    },
+                    grid: {
+                        left: '10%',
+                        bottom: '15%',
+                        top:'15%',
+                        containLabel: true
+                    },
+                    title: [
+                        {
+                            text: '{name|功能}',
+                           // top: '25%',
+                            bottom: '10%',
+                            left:'9%',
+                            textStyle: {
+                                rich: {
+                                    name: {
+                                        fontSize: 14,
+                                        fontWeight: 'bold',
+                                        color: '#fff',
+                                        fontFamily:'Microsoft YaHei'
+
+                                    },
+
+                                }
+                            }
+                        }
+
+
+                    ],
+
+                    xAxis:  {
+                        type: 'value',
+                        // minInterval:250,
+                        axisTick: {
+                            show: false,
+                        },
+                        splitLine: {
+                            show: false,
+                            lineStyle: {
+                                color:'rgb(93,101,173)',
+                                width:0.5
+                            }
+                        },
+                        axisLine: {
+                            show: false  ,
+                            lineStyle:{
+                                color:'#fff',
+                            }
+                        },
+
+                        axisLabel:{
+                            show:false
+                        },
+                    },
+                    yAxis: {
+                        type: 'category',
+                        data: [{value:'擅自改变',textStyle:{
+                            color:'#fff',
+
+                            }},'群组牟利','三合一','擅自扩建','无资产','集中隔离'],
+                        axisLine:{
+                            show:true,
+                            lineStyle:{
+                                show:false,
+                                color:'#979797',
+                                width:1
+                            }
+                        },
+                        splitLine: {
+                            show: false
+                        },
+                        axisTick: {
+                            show: false
+                        },
+                     //   interval:'0',
+                        axisLabel:{
+                            color:'#fff',
+                            fontSize:14,
+                            fontFamily:'Microsoft YaHei'
+                        },
+                    },
+                    series: [
+                        {
+                            type:'bar',
+                            barWidth: '30%',
+                            label: {
+                                show:false,
+                                fontSize:16,
+                                position:'top',
+                                color:'#fff',
+                                fontWeight:'bold'
+
+                            },
+                            data:[
+                                {
+                                    value:110,
+                                    label: {
+                                        normal: {
+                                            show: false,
+                                            position: 'right',
+                                            formatter:'{c}',
+                                            fontSize:16,
+                                        }
+                                    },
+                                    itemStyle:{normal:{ color: new echarts.graphic.LinearGradient(1, 0, 0, 0, [{
+                                                offset:0.3,
+                                                color: '#FEBF63'
+
+                                            }, {
+                                                offset: 1,
+                                                color: '#D59E4E'
+                                            }]),},}
+                                },
+                                {
+                                    value:80,
+                                    label:{
+                                        normal: {
+                                            position: 'right',
+                                            formatter:'{c}',
+                                            fontSize:16,
+                                        }
+                                    },
+                                    itemStyle:{normal:{ color: new echarts.graphic.LinearGradient(1, 0, 0, 0, [{
+                                                offset:0.3,
+                                                color: '#FEBF63'
+
+                                            }, {
+                                                offset: 1,
+                                                color: '#D59E4E'
+                                            }]),},}
+                                },
+                                {
+                                    value:76,
+                                    label: {
+                                        normal: {
+                                            position: 'right',
+                                            formatter:'{c}',
+                                            fontSize:16,
+                                        }
+                                    },
+                                    itemStyle:{normal:{ color: new echarts.graphic.LinearGradient(1, 0, 0, 0, [{
+                                                    offset:0.3,
+                                                    color: '#FEBF63'
+
+                                                }, {
+                                                    offset: 1,
+                                                    color: '#D59E4E'
+                                                }]),},}
+
+                                },
+                                {
+                                    value:120,
+                                    label: {
+                                        normal: {
+                                            position: 'right',
+                                            formatter:'{c}',
+                                            fontSize:16,
+                                        }
+                                    },
+                                    itemStyle:{normal:{ color: new echarts.graphic.LinearGradient(1, 0, 0, 0, [{
+                                                offset:0.3,
+                                                color: '#FEBF63'
+
+                                            }, {
+                                                offset: 1,
+                                                color: '#D59E4E'
+                                            }]),},}
+                                },
+                                {
+                                    value:706,
+                                    label: {
+                                        normal: {
+                                            show: true,
+                                            position: 'top',
+                                            formatter:'数量\t:\t{c}',
+                                            fontSize:14,
+                                            //backgroundColor:'rgba(255,255,255,0.3)',
+                                            opacity:0.8,
+
+                                        }
+                                    },
+                                    itemStyle:{
+                                        normal:{ color: new echarts.graphic.LinearGradient(1, 0, 0, 0, [{
+                                                offset:0.3,
+                                                color: '#FEBF63'
+
+                                            }, {
+                                                offset: 1,
+                                                color: '#D59E4E'
+                                            }]),
+
+
+                                        },
+
+                                 }
+                                },
+                                {
+                                    value:160,
+                                    label: {
+                                        normal: {
+                                            position: 'right',
+                                            formatter:'{c}',
+                                            fontSize:16,
+                                        }
+                                    },
+                                    itemStyle:{normal:{ color: new echarts.graphic.LinearGradient(1, 0, 0, 0, [{
+                                                offset:0.3,
+                                                color: '#FEBF63'
+
+                                            }, {
+                                                offset: 1,
+                                                color: '#D59E4E'
+                                            }]),},}
+                                },
+
+                            ],
+
+
+                        }
+                    ]
+                };
+                myChart1.setOption(option);
+            },
+
+        },
+
+        mounted:function () {
+            this.getSafe()
+        }
+
+
+
+
+    })
+
+
+
+
+
+</script>
+
+
+
+</html>
